@@ -93,7 +93,7 @@ public class RegisterDao {
 		return ack;
 	}
 
-	public boolean authenticateUSer(UserAuth user) {
+	public String authenticateUSer(UserAuth user) {
 		
 		String customerId = null;
 		DataSource ds = new DataSource();
@@ -109,9 +109,9 @@ public class RegisterDao {
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
 			rs = ps.executeQuery();
-//			while(rs.next()){
-//				customerId = rs.getString(1);
-//			}
+			while(rs.next()){
+				customerId = rs.getString(1);
+			}
 			
 			status = rs.next();
 			
@@ -129,8 +129,8 @@ public class RegisterDao {
 			}
 			
 		}
-		System.out.println("Customer ID exists: " + status);
-		return status;
+		System.out.println("Customer ID : " + customerId);
+		return customerId;
 	}
 	
 	public Customer getCustomerByCustId(String custId){

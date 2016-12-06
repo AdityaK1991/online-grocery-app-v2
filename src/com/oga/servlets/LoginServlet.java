@@ -62,9 +62,9 @@ public class LoginServlet extends HttpServlet {
 		user.setPassword(regObj.get("password").getAsString());
 		//System.out.println(new Gson().toJson(customer));
 		RegisterDao rgdao = new RegisterDao();
-		
-		if(rgdao.authenticateUSer(user)) {
-			String json = new Gson().toJson(user);
+		String customerId = rgdao.authenticateUSer(user);
+		if(customerId != null) {
+			String json = new Gson().toJson(customerId);
 			response.setContentType("application/json");
 			response.getWriter().write(json);
 		} else {
