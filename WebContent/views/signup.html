@@ -1,0 +1,149 @@
+<div class="revert-container center card card-outline-blue whiteColor">
+	<strong><h3>Register</h3></strong>
+</div>
+<div class="revert-container jumbotron">
+
+      <form class="form" name="formRegister" accept-charset="UTF-8">
+
+      	<div class="title">
+			<h3>
+				<strong>Name</strong>	
+			</h3>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-align-justify"></i></span>
+				<input type="text" class="form-control" placeholder="First Name" ng-model="register.fname" maxlength="100" required/>
+			</div>
+		</div>
+		
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-align-justify"></i></span>
+				<input type="text" class="form-control" placeholder="Middle Name" ng-model="register.mname" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-align-justify"></i></span>
+				<input type="text" class="form-control" placeholder="Last Name" ng-model="register.lname" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="title">
+			<h3>
+				<strong>Address</strong>	
+			</h3>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="text" class="form-control" placeholder="Address Line 1" ng-model="reg.addressL1" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="text" class="form-control" placeholder="Address Line 2" ng-model="reg.addressL2" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="text" class="form-control" placeholder="City" ng-model="register.city" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="text" class="form-control" placeholder="State" ng-model="register.state" maxlength="100" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="text" class="form-control" placeholder="Zip" ng-model="register.zipcode" maxlength="100" required/>
+			</div>
+		</div>
+		
+		<div class="form-group has-feedback">
+			<div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<input type="number" class="form-control" placeholder="Phone" ng-model="register.phone" maxlength="10" required/>
+			</div>
+		</div>
+
+		<div class="title">
+			<h3>
+				<strong>Login Credentials</strong>	
+			</h3>
+		</div>
+
+		<div class="input-group-btn" ng-init="style={'background-color' : '#428bca'}">
+			<button type="button" class="btn btn-secondary btn-sm" ng-style="style1=style" ng-click="updateUserRole(0); style1=style; style2=null; style={'background-color' : '#428bca'}">Customer</button>
+			<button type="button" class="btn btn-secondary btn-sm" ng-style="style2" ng-click="updateUserRole(1); style2=style; style=null">Staff</button>
+		</div> 
+
+		<br>
+		
+		<div class="form-group has-feedback">
+			<div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				<input type="email" class="form-control" placeholder="Email" ng-model="register.email" maxlength="100" required/>
+			</div>
+		</div>
+
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+				<input type="password" value="111111" class="form-control" placeholder="Password" ng-model="register.password" minlength="6" maxlength="60" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback">
+			<div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+				<input type="password" value="111111" class="form-control" placeholder="Re-enter Password" ng-model="register.rpassword" minlength="6" maxlength="60" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback" ng-show="!isCustomer">
+			<div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+				<input type="number" class="form-control" placeholder="Salary" ng-model="register.salary" required/>
+			</div>
+		</div>
+
+		<div class="form-group has-feedback" ng-show="!isCustomer">
+			<div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+				<input type="text" class="form-control" placeholder="Job Title" ng-model="register.jobTitle" required/>
+			</div>
+		</div>
+      	<p ng-show="register.password !== register.rpassword" class="help-block">Passwords don't match!</p>
+
+
+		<a class="btn btn-block btn-primary" href="#/main" type="submit" ng-click="submitCustomerInfo()"
+		ng-class="{disabled: !register.fname || !register.lname || 
+					!reg.addressL1 ||
+					!register.city || !register.state || !register.zipcode ||
+					!register.password || !register.rpassword ||
+					register.password !== register.rpassword ||
+					(!isCustomer  && (!register.salary || !register.jobTitle))}">Submit</a>
+
+		</form>
+
+	      <p>
+	      	<h4>Already a customer?
+	     	 	<a id="btn-signin" class="btn btn-primary" href="#/login">Sign In</a>
+	      	</h4>
+	      </p>
+</div>

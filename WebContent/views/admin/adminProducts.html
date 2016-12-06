@@ -1,0 +1,21 @@
+<div class="center card card-outline-primary whiteColor"><strong><h3>Manage Products</h3></strong></div>
+
+<div class="input-group card paddingLR10 card-outline-primary center">
+        <span class="input-group-btn paddingLR10 glyphicon glyphicon-search whiteColor"></span>
+    <input type="text" ng-model="adminSearchProducts" class="form-control" placeholder="Search Products">
+</div>
+
+<div class="jumbotron">
+
+<div class="row" ng-repeat="category in ['1', '2', '3']">
+<div class="center card card-outline-primary whiteColor"><strong><h4>Category {{ category }}</h4></strong></div>
+  <div class="col-md-3" ng-repeat="itemsRow in ['1','2','3','4','5','6','7','8'] | filter:adminSearchProducts">
+    <div class="card" >
+      <img class="card-img-top" src="images/yeoman.png" alt="Product">
+      <div class="card-block">
+        <h4 class="card-title">Product {{ itemsRow }}</h4>
+        <h5 class="card-text">Test</h5>
+        <a ng-href="#/admin/products/1" class="glyphicon glyphicon-edit orangeColor"/>
+      </div>
+  </div>
+</div>

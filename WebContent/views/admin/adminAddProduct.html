@@ -1,0 +1,79 @@
+<div class="center card card-outline-blue whiteColor"><strong><h3>New Product</h3></strong></div>
+
+<!-- <ng-include src="'views/carousel.html'"> </ng-include> -->
+<div class="card">
+
+<div class="row">
+    
+    <div class="col-md-5">
+        <img class="card-image customHeight250 center-block" src="images/yeoman.png" alt="Product">
+    </div>
+
+    <div class="col-md-5 ">
+
+    <form class="form" ng-submit="register()" accept-charset="UTF-8">
+
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon">Product Name</i></span>
+            <input type="text" class="form-control" placeholder="Name" ng-model="p.name" maxlength="100" required/>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon">Product Category</i></span>
+                <select ng-model="selectedCategory" class="form-control" ng-options="y for (x, y) in ['Vegetables', 'Beverages', 'Spices']">
+                </select>          
+            </div>
+        </div>
+
+
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon">Product Availability in State</i></span>
+                <select ng-model="selectedState" class="form-control" ng-options="y for (x, y) in ['IL', 'NY', 'CA']">
+                </select>   
+                <span class="input-group-addon btn btn-primary" ng-class="{disabled : !selectedState}" ng-click="addStateForProduct(selectedState)"> Add
+                </span>
+          </div>
+          <div class="card" ng-repeat="pState in productStates"> 
+            <span class="marginLR50"><strong>{{pState.state}}</strong></span>
+            <a class="glyphicon glyphicon-remove-circle redColor pull-right marginLR50" ng-click="deleteStateForProduct($index)"/>
+          </div>
+        </div>
+
+    </form>
+
+      <h3><strong><div class="title">Product name</div></strong></h3>
+
+      <h4><p class="greenColor" ng-show="{{pQty > 0}}">This Product is in stock</p></h4>
+      <h4><p class="redColor" ng-show="{{pQty === 0}}">This Product is out of stock</p></h4>
+
+      <h4><strong><div class="title">Price: ${{ pPrice }}</div></strong></h4>
+ 
+      <div ng-model="pQty" ng-if="pQty>0"><h5><strong>Quantity left: {{ pQty }}</strong></h5></div>
+
+      <h4><strong><span class="title"><h4><strong>Quantity:</strong></h4></span></strong></h4> 
+      <input type="number" ng-model="pCount" value="1" min="1" max="{{pQty}}">  
+
+
+      <button class="btn btn-primary" type="submit" ng-show="pQty > 0" ng-disabled="!pCount" ng-href="#/cart">Add to Cart</button><br><br>
+
+      <div ng-show="pCount > pQty">Quantity cannot be more than {{pQty}}</div>
+
+      <div><h4><strong>About the Product</strong></h4></div>
+
+      <ul>
+        <li>sdsdfsdfsfdsdf</li>
+        <li>sdsdfsdfsfdsdf</li>
+        <li>sdsdfsdfsfdsdf</li>
+        <li>sdsdfsdfsfdsdf</li>
+        <li>sdsdfsdfsfdsdf</li>
+        <li>sdsdfsdfsfdsdf</li>
+      </ul>
+    </div>
+</div>
+
+
+</div>

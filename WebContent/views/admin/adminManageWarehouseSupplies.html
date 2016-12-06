@@ -1,0 +1,140 @@
+<div ng-controller="CartItemsCtrl">
+
+  <table class="table table-hover">
+
+
+  <tbody class="card">
+    
+    <div class="center card card-outline-primary whiteColor"><strong><h3>Manage Warehouse supplies for Warehouse</h3></strong>
+    
+    </div>
+
+    <th class="col-xs-1">Product</th>
+    <th class="col-xs-1">Size</th>
+    <th class="col-xs-1">Quantity</th>
+    <th class="col-xs-1">Supplier</th>
+    <!-- <th class="col-xs-1">Buy Stock from Supplier</th> -->
+    <th class="col-xs-1">Total Price</th>
+    <th class="col-xs-1">Add to cart</th>
+    <!-- <th class="col-xs-2">Delete</th> -->
+
+    <tr ng-repeat="product in products">
+      <td>
+        {{ product.name }}
+      </td>
+
+      <td>
+        {{ product.size }}
+      </td>
+
+      <td>
+        {{ product.qty }}
+      </td>
+
+      <td>
+        {{ product.supplier }}
+      </td>
+
+      <!-- <td>
+        Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
+        <div ng-show="buyFromSupplier">
+          Count: {{productCount=10}} 
+          <button class="btn btn-primary" ng-disabled="productCount === 0" ng-click="addProductToCart()">Add to Cart</button>
+        </div> -->
+
+      <!-- </td> -->
+       <td>
+        {{ product.price * product.qty }}
+      </td> 
+
+      <td>
+          <a class="glyphicon glyphicon-plus-sign greenColor" href="#/admin/warehouses/1" ng-click="addProductToCart($index)"/>
+      </td> 
+
+      <!-- <td>
+          <a class="glyphicon glyphicon-trash" href="#/cart" ng-click="deleteCartItem($index)"/>
+      </td> -->
+    </tr>
+
+     </tbody>
+    </table>
+
+    <div class="row card marginLR5">
+    <div class="col-md-6">
+          <td>
+            <p><strong><h4>Total Product count:</h4></strong></p>
+            <p><strong><h4>Total warehouse capcity occupied by all products:</h4></strong></p>
+            <p><strong><h4>Warehouse Total Capacity:</h4></strong></p>
+          </td>
+
+      </div>
+
+      <div class="col-md-3">
+          <td>
+            <p><strong><h4>1400</h4></strong></p>
+            <p><strong><h4>1000 cubic feet</h4></strong></p>
+            <p><strong><h4>2,500 cubic feet</h4></strong></p>
+          </td>
+
+      </div>
+  </div>
+  </div>
+
+
+
+
+<table class="table table-hover">
+
+
+  <tbody class="card">
+    
+    <div class="center card card-outline-primary whiteColor"><strong><h4>Cart</h4></strong>
+    
+    </div>
+
+    <th class="col-xs-1">Product</th>
+    <th class="col-xs-1">Select Supplier</th>
+    <th class="col-xs-1">Select Quantity</th>
+    <th class="col-xs-1">Price</th>
+    <!-- <th class="col-xs-2">Delete</th> -->
+
+    <tr ng-repeat="cartProduct in cartProducts">
+      <td>
+        {{ cartProduct.name }}
+      </td>
+
+      <td>
+        <select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
+      </td>
+
+      <td>
+        <select ng-init="qty=1" ng-model="qty" ng-options="y for (x, y) in ['1', '2', '3', '4', '5', '6']"></select>
+      </td>
+
+      <td ng-show="buyFromSupplier">
+        {{ qty * 20}}
+      </td>
+
+      <!-- <td>
+        {{ product.supplier }}
+      </td> -->
+
+      <!-- <td>
+        Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
+        <div ng-show="buyFromSupplier">
+          Count: {{productCount=10}} 
+          <button class="btn btn-primary" ng-disabled="productCount === 0" ng-click="addProductToCart()">Add to Cart</button>
+        </div> -->
+
+      <!-- </td> -->
+    
+    </tr>
+
+     </tbody>
+    </table>
+
+
+
+
+
+    <a class="btn btn-primary pull-right" ng-href="#/order-payment">Checkout</a>

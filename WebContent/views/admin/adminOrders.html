@@ -1,0 +1,55 @@
+<div class="center card card-outline-blue whiteColor">
+  <strong><h3>Manage Orders</h3></strong>
+</div>
+
+<div ng-repeat="orderId in ['1', '2', 3]">
+  <div class="center card card-outline-primary whiteColor">
+    <strong><h4>Order {{orderId}}</h4></strong> 
+    <span class="btn btn-success">
+      <a class="glyphicon glyphicon-ok-circle whiteColor" href="#/admin/orders" ng-click="approveOrder($index)"></a>
+      Approve
+    </span>
+    <span class="btn btn-danger">
+      <a class="glyphicon glyphicon-remove-circle whiteColor" href="#/admin/orders" ng-click="cancelOrder($index)"></a>
+      Cancel
+    </span>
+  </div>
+
+  <div class="row marginLR5 customColor">
+      <div class="col-md-6">
+        <p><strong><h4>Customer name</h4></strong></p>
+        <p><strong><h4>Order date</h4></strong></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong><h4>Shipping Address</h4></strong></p>
+        <address>
+          <!-- <strong>{{ fName }} {{ lName }}</strong><br>
+          {{ addressL1 }}<br>
+          {{ addressL1 }}<br>
+          {{ city }}, {{ state }} {{ zip }}<br> -->
+          <strong>Test test</strong><br>
+          Test address 1<br>
+          Test address 2<br>
+          city, state zip<br>
+        </address>
+      </div>
+  </div>
+
+  <div class="row custom-jumbotron" ng-repeat="a in ['1', '2', 3]">
+  <div class="col-md-5 card">
+    <!-- <div class="thumbnail">
+      <img src="images/yeoman.png" class="img-responsive customHeight" alt="">
+        <div class="caption">
+          <h5>Thumbnail label</h5>
+        </div>
+    </div> -->
+    <img class="customHeight100 center-block" src="images/yeoman.png" alt="Product">
+  </div>
+
+  <div class="col-md-5"><br>
+    <p><strong>Product: {{ pName }}</strong></p>
+    <p><strong>Price: {{ pPrice }}</strong></p>
+    <p><strong>Quantity purchased: {{ pQty }}</strong></p>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="center card card-outline-primary whiteColor"><strong><h3>Manage Warehouse Supplies</h3></strong></div>
+
+<div class="input-group card paddingLR10 card-outline-primary center">
+        <span class="input-group-btn paddingLR10 glyphicon glyphicon-search whiteColor"></span>
+    <input type="text" ng-model="adminSearchWarehouse" class="form-control" placeholder="Search Warehouse">
+</div>
+
+<div class="row card marginLR5" ng-repeat="state in ['Illinois', 'New York', 'California'] | filter:adminSearchWarehouse">
+<div class="center bg-primary padding10">
+  <strong><h4>Warehouse {{ state }}</h4></strong>
+    <a class="glyphicon glyphicon-edit orangeColor" href="#/admin/warehouses" ng-click="enableCustomerInfoEditor()"/>
+</div>
+
+  <div class="col-md-4">
+      <td>
+        <p><strong><h4>Total Products:</h4></strong></p>
+        <p><strong><h4>Warehouse Total Capacity:</h4></strong></p>
+        <p><strong><h4>Warehouse Current Capacity:</h4></strong></p>
+      </td>
+
+  </div>
+
+  <div class="col-md-3">
+      <td>
+        <p><strong><h4>1400</h4></strong></p>
+        <p><strong><h4>1000 cubic feet</h4></strong></p>
+        <p><strong><h4>2,500 cubic feet</h4></strong></p>
+      </td>
+
+  </div>
+        <!-- <div class="card" >
+      <img class="card-img-top" src="images/yeoman.png" alt="Product">
+      <div class="card-block">
+        <h4 class="card-title">Product {{ itemsRow }}</h4>
+        <h5 class="card-text">Test</h5>
+        <a ng-href="#/admin/products/1" class="glyphicon glyphicon-edit orangeColor"/>
+      </div>
+  </div> -->
+</div>

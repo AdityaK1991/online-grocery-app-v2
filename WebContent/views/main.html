@@ -1,0 +1,67 @@
+<!-- <nav class="navbar navbar-dark bg-primary" role="navigation">
+   <span class="center-block whiteColor" ng-href="#/">
+          Home
+    </a>
+</nav> -->
+<div class="center card card-outline-blue whiteColor"><strong><h3>Popular Products</h3></strong></div>
+<ng-include src="'views/carousel.html'"></ng-include>
+<!-- <div ng-model="searchProduct" ng-include="'views/searchBarProducts.html'"></div> -->
+<div class="input-group card paddingLR10 card-outline-primary center">
+        <span class="input-group-btn paddingLR10 glyphicon glyphicon-search whiteColor"></span>
+    <input type="text" ng-model="searchProduct" class="form-control" placeholder="Search Products">
+</div>
+
+<!-- <form class="navbar-form card card-outline-primary center" role="search">
+        <span class="glyphicon glyphicon-search"></span>
+    <input type="text" class="form-control" placeholder="Search Products">
+</form> -->
+
+<div class="jumbotron">
+<div class="row" ng-repeat="type in ['Cheapest Products for today', 'Recommended', 'Frequently bought']">
+  <div class="center card card-outline-primary whiteColor"><strong><h4>{{type}}</h4></strong></div>
+  <div class="col-md-4 top-buffer" ng-repeat="itemsRow in ['P1','P2','P3','P4','P5','P6','P7','P8'] | filter:searchProduct">
+    <!-- <div class="thumbnail">
+      <a href="#">
+      
+        <img src="images/yeoman.png" class="img-responsive" alt="...">
+        <div class="caption">
+          <h5>Thumbnail label</h5>
+        </div>
+      </a>
+    </div> -->
+    <a ng-href="#/products/1">
+    <div class="card">
+      <img class="card-image" src="images/yeoman.png" alt="Product">
+      <div class="card-block">
+        <span class="card-title"><h4>{{itemsRow}}</h4></span>
+        <span class="card-text"><h5>Price</h5></span>
+          <!-- <a ng-href="#/products/1" class="btn btn-primary btn-xs">Add to Cart</a> -->
+      </div>
+    </div>
+    </a>
+  </div>
+</div>
+
+  <!-- <h1>'Allo, 'Allo!</h1>
+  <p class="lead">
+    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
+    Always a pleasure scaffolding your apps.
+  </p>
+  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
+</div>
+
+<!-- <div class="row marketing">
+  <h4>HTML5 Boilerplate</h4>
+  <p>
+    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
+  </p>
+
+  <h4>Angular</h4>
+  <p>
+    AngularJS is a toolset for building the framework most suited to your application development.
+  </p>
+
+  <h4>Karma</h4>
+  <p>Spectacular Test Runner for JavaScript.</p>
+</div>
+ -->

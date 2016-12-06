@@ -1,0 +1,61 @@
+<div ng-controller="CartItemsCtrl">
+
+  <table class="table table-hover">
+
+
+  <tbody class="card">
+    
+    <div class="center card card-outline-primary whiteColor"><strong><h3>Cart</h3></strong>
+      <!-- <span ng-hide="editorCustomerInfoEnabled">
+        <a class="glyphicon glyphicon-edit" href="#/customer-info" ng-click="enableCustomerInfoEditor()"/>
+      </span>
+
+      <span ng-show="editorCustomerInfoEnabled">
+          <a class="glyphicon glyphicon-saved" href="#/customer-info" ng-class="{disabled: !editableFName || !editableLName || !editableAddressL1 || !editableAddressL2 || !editableCity || !editableState || !editableZip || !editableCountry || !editablePhone }" ng-click="saveCustomerInfo()"/>
+          <a class="glyphicon glyphicon-trash" href="#/customer-info" ng-click="disableCustomerInfoEditor()"/>
+      </span> -->
+    </div>
+
+    <th class="col-xs-2">Product</th>
+    <th class="col-xs-2">Quantity</th>
+    <th class="col-xs-2">Total Price</th>
+    <th class="col-xs-2">Manage</th>
+    <!-- <th class="col-xs-2">Delete</th> -->
+
+    <tr ng-repeat="item in cartItems">
+      <td>
+        {{ item.name }}
+      </td>
+
+      <td ng-hide="cartItemsCopy[$index].isCartItemEditable">
+        {{ item.qty }}
+      </td>
+
+      <td ng-show="cartItemsCopy[$index].isCartItemEditable">
+        <input type="number" ng-model="item.qty">
+      </td>
+      
+      <td>
+        {{ item.qty * item.pricePerItem }}
+      </td> 
+
+      <td ng-hide="cartItemsCopy[$index].isCartItemEditable">
+          <a class="glyphicon glyphicon-edit orangeColor" href="#/cart" ng-click="makeCartItemEditable($index)"/>
+          <a class="glyphicon glyphicon-trash paddingL100 redColor" href="#/cart" ng-click="deleteCartItem($index)"/>
+      </td> 
+
+      <td ng-show="cartItemsCopy[$index].isCartItemEditable">
+          <a class="glyphicon glyphicon-check greenColor" href="#/cart" ng-click="saveEditedCartItem($index)"/>
+          <a class="glyphicon glyphicon-trash paddingL100 redColor" href="#/cart" ng-click="deleteCartItem($index)"/>
+      </td> 
+
+      <!-- <td>
+          <a class="glyphicon glyphicon-trash" href="#/cart" ng-click="deleteCartItem($index)"/>
+      </td> -->
+    </tr>
+    </tbody>
+    </table>
+
+    <a class="btn btn-primary pull-right" ng-href="#/order-payment">Checkout</a>
+
+</div>

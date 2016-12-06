@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Online Grocery Store</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/fonts/glyphicons-halflings-regular.woff2"/>
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+
+  <body ng-app="onlineGroceryStoreApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <div class="header">
+        <ng-include src="'views/navSideMenu.html'" ng-show="isMenuVisible"></ng-include>
+        <ng-include src="'views/admin/adminNavSideMenu.html'" ng-show="isAdminMenuVisible"></ng-include>
+ 
+
+    </div>
+
+    <div class="container">
+
+    <!-- <nav class="navbar navbar-dark bg-primary" role="navigation">
+
+          <a class="navbar-brand whiteColor" ng-href="#/">
+            <img src="images/yeoman.png" width="50" height="50" class="d-inline-block align-top" alt="">
+            Online Grocery Store
+          </a>
+        
+        <ng-include src="'views/navMenu.html'" ng-hide="isMenuVisible"></ng-include>
+
+      </nav> -->
+    <div ng-view=""></div>
+    </div>
+
+    <!-- <div class="footer bg-primary">
+      <div class="container">
+        <p class="whiteColor"><span class="glyphicon glyphicon-heart"></span></p>
+      </div>
+    </div> -->
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+	<script src="scripts/required/jquery.min.js"></script>
+    <script src="scripts/required/angular.js"></script>
+    <script src="scripts/required/bootstrap.js"></script>
+    <script src="scripts/required/angular-animate.js"></script>
+    <script src="scripts/required/angular-cookies.js"></script>
+    <script src="scripts/required/angular-resource.js"></script>
+    <script src="scripts/required/angular-route.js"></script>
+    <script src="scripts/required/angular-sanitize.js"></script>
+    <script src="scripts/required/angular-touch.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/signin.js"></script>
+        <script src="scripts/controllers/signup.js"></script>
+        <script src="scripts/controllers/forgotPassword.js"></script>
+        <script src="scripts/controllers/productDetail.js"></script>
+        <script src="scripts/controllers/customerInfo.js"></script>
+        <script src="scripts/controllers/orderHistory.js"></script>
+        <script src="scripts/controllers/orderPayment.js"></script>
+        <script src="scripts/controllers/cartItems.js"></script>
+        <script src="scripts/controllers/navSideMenu.js"></script>
+        <script src="scripts/controllers/admin/adminProducts.js"></script>
+        <script src="scripts/controllers/admin/adminAddProduct.js"></script>
+        <script src="scripts/controllers/admin/adminManageProduct.js"></script>
+        <script src="scripts/controllers/admin/adminWarehousesList.js"></script>
+        <script src="scripts/controllers/admin/adminManageWarehouseSupplies.js"></script>
+        <script src="scripts/controllers/admin/adminManageSuppliers.js"></script>
+        <script src="scripts/controllers/admin/adminOrders.js"></script>
+        <!-- endbuild -->
+        
+        <!-- Services -->
+        <script src="services/loginService.js"></script>
+        
+</body>
+</html>

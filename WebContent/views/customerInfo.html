@@ -1,0 +1,230 @@
+<div ng-controller="CustomerInfoCtrl">
+		
+<!-- 	<form class="form" ng-submit="login()" accept-charset="UTF-8">
+ -->		
+ <button ng-click="getDataFromServer()">Fetch data from server</button>
+           <p>First Name : {{product.productName}}</p>
+           <p>Last Name : {{product.price}}</p>
+           
+	<table class="table table-hover">
+
+
+
+	<tbody class="card">
+		
+		<div class="center card card-outline-primary whiteColor"><strong><h3>Account Details</h3></strong>
+			<span ng-hide="editorCustomerInfoEnabled">
+			  <a class="glyphicon glyphicon-edit orangeColor" href="#/customer-info" ng-click="enableCustomerInfoEditor()"/>
+			</span>
+
+			<span ng-show="editorCustomerInfoEnabled">
+		  		<a class="glyphicon glyphicon-ok-circle greenColor" href="#/customer-info" ng-class="{disabled: !editableFName || !editableLName || !editableAddressL1 || !editableAddressL2 || !editableCity || !editableState || !editableZip || !editableCountry || !editablePhone }" ng-click="saveCustomerInfo()"/>
+			</span>
+		</div>
+
+		<tr>
+			<th class="col-xs-2">First Name</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ fName }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableFName" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+
+
+		<tr>
+			<th  class="col-xs-2">Last Name</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ lName }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableLName" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr>
+			<th  class="col-xs-2">Address line 1</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ addressL1 }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableAddressL1" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+
+		<tr>
+			<th  class="col-xs-2">Address line 2</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ addressL2 }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableAddressL2" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+
+		<tr>
+			<th  class="col-xs-2">City</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ city }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableCity" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr>
+			<th  class="col-xs-2">State/Province/Region</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ state }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableState" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr>
+			<th  class="col-xs-2">Zip</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ zip }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" type="number" maxlength="6" ng-model="editableZip" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr>
+			<th  class="col-xs-2">Country</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ country }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" ng-model="editableCountry" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr>
+			<th  class="col-xs-2">Phone number</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ phone }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" type="number" ng-model="editablePhone" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr  ng-if="isStaff">
+			<th  class="col-xs-2">Salary</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ salary }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" type="number" ng-model="editableSalary" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+
+		<tr  ng-if="isStaff">
+			<th  class="col-xs-2">Job Title</th>
+
+			<td ng-hide="editorCustomerInfoEnabled">
+			  {{ jobTitle }}
+			</td>
+
+			<td ng-show="editorCustomerInfoEnabled">
+			  <input class="form-control" type="text" ng-model="editableJobTitle" ng-show="editorCustomerInfoEnabled">
+			</td>
+		</tr>
+	</tbody>
+
+</table>
+
+
+<!-- <div class="center card" ng-if="paymentMethods.length > 0"><strong><h3>Payment Details</h3></strong></div>
+ -->
+<div class="form-group" ng-repeat="paymentMethod in paymentMethods">
+
+<table class="table table-hover">
+	<tbody class="card">
+		<div class="center card card-outline-primary whiteColor"><strong><h3>Payment Method {{ $index+1 }}</h3></strong>
+			<span ng-hide="paymentMethodsCopy[$index].isCardEditable">
+			  <a class="glyphicon glyphicon-edit orangeColor" href="#/customer-info" ng-click="enableCardEditor($index)"/>
+			</span>
+
+			<span ng-show="paymentMethodsCopy[$index].isCardEditable">
+		  		<a class="glyphicon glyphicon-ok-circle greenColor" href="#/customer-info" ng-class="{disabled: !paymentMethod.cardName || !paymentMethod.cardNumber || !paymentMethod.cardMM || !paymentMethod.cardYYYY}" ng-click="saveCardInfo($index)"/>
+		  		<a class="glyphicon glyphicon-remove-circle redColor" href="#/customer-info" ng-click="deleteCard($index)"/>
+			</span>
+		</div>
+		
+		<tr>
+			<th class="col-xs-2">Name on Card</th>
+
+			<td ng-hide="paymentMethodsCopy[$index].isCardEditable">
+			  {{ paymentMethod.cardName }}
+			</td>
+
+			<td ng-show="paymentMethodsCopy[$index].isCardEditable">
+			  <input class="form-control" ng-model="paymentMethod.cardName" ng-show="paymentMethodsCopy[$index].isCardEditable">
+			</td>
+		</tr>
+
+		<tr>
+			<th class="col-xs-2">Card number</th>
+
+			<td ng-hide="paymentMethodsCopy[$index].isCardEditable">
+			  {{ paymentMethod.cardNumber }}
+			</td>
+
+			<td ng-show="paymentMethodsCopy[$index].isCardEditable">
+			  <input class="form-control" type="number" maxlength="16" ng-model="paymentMethod.cardNumber" ng-show="paymentMethodsCopy[$index].isCardEditable">
+			</td>
+		</tr>
+
+
+		<tr>
+			<th class="col-xs-2">Expiration Date</th>
+
+			<td ng-hide="paymentMethodsCopy[$index].isCardEditable">
+			  <span ng-if="paymentMethod.cardMM && paymentMethod.cardYYYY">
+			  {{paymentMethod.cardMM}}/{{paymentMethod.cardYYYY}}
+			  </span>
+			</td>
+
+			<td ng-show="paymentMethodsCopy[$index].isCardEditable">
+				<div class="input-group spinner">
+					<span><strong>MM</strong></span><input type="number" ng-model="paymentMethod.cardMM" ng-show="paymentMethodsCopy[$index].isCardEditable" class="form-control" value="1" min="1" max="12" required><br>
+					<span><strong>YYYY</strong></span><input type="number" ng-model="paymentMethod.cardYYYY" ng-show="paymentMethodsCopy[$index].isCardEditable" class="form-control" value="2016" min="2016" required>		
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+</div>
+<!-- </form> -->
+<button class="btn btn-primary center-block" ng-click="addPaymentMethod()"><span class="glyphicon glyphicon-plus-sign"/> Payment Method</button>
+
+</div>

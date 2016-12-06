@@ -1,0 +1,35 @@
+<div ng-controller="OrderPaymentCtrl">
+
+<div class="center card card-outline-blue whiteColor"><strong><h3>Order Payment</h3></strong></div>
+
+<div class="card custom-jumbotron">
+<div class="title"><h4><strong>Order Summary</strong></h4></div>
+	<p>Number of items: {{itemCount}}</p>
+	<p>Price: {{itemCount * price}}</p>
+	<p>Shipping and handling: {{itemCount * price * 0.15}}</p>
+	<p>Estimated tax: {{itemCount * price * 0.10}}</p>
+	<p><strong>Order total: {{(itemCount * price ) + (itemCount * price * 0.15) + (itemCount * price * 0.10)}}</strong></p>
+	</div>
+
+<div class="card custom-jumbotron">
+<div class="title"><h4><strong>Shipping Address</strong></h4></div>
+<address>
+	<strong>{{ fName }} {{ lName }}</strong><br>
+	{{ addressL1 }}<br>
+	{{ addressL1 }}<br>
+	{{ city }}, {{ state }} {{ zip }}<br>
+</address>
+</div>
+
+<div class="card custom-jumbotron">
+<div class="title"><h4><strong>Payment Method</strong></h4></div>
+	<div ng-repeat="card in cards">
+		<label>
+		  <input type="radio">
+		  	Card 1
+		</label>
+		<p>Card ending in {{card.cardNumber}}</p>
+	</div>			
+</div>
+</div>
+<button class="btn btn-primary">Place order</button>

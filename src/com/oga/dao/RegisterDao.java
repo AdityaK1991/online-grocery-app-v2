@@ -1,0 +1,128 @@
+package com.oga.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.oga.bean.Customer;
+import com.oga.bean.UserAuth;
+
+public class RegisterDao {
+
+
+	private Connection con;
+	private PreparedStatement ps;
+	
+	public String addUSer(Customer customer){
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		String ack = null;
+		//fname,Mname,Lname,email,sAddress,city,state,zipcode
+		final String insert_Query ="INSERT INTO CUSTOMER VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			ps = con.prepareStatement(insert_Query);
+			ps.setInt(1, 1);
+			ps.setString(2, customer.getFname());
+			ps.setString(3, customer.getMname());
+			ps.setString(4, customer.getLname());
+			ps.setString(5, customer.getEmail());
+			ps.setString(6, customer.getStreetAddress());
+			ps.setString(7, customer.getCity());
+			ps.setString(8, customer.getState());
+			ps.setString(9, customer.getZipcode());
+			ps.setInt(10, 0);
+			
+			int rowAffected = ps.executeUpdate();
+			
+			if(rowAffected != 0){
+				ack="saved";
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return ack;
+	}
+
+	public String authenticateUSer(UserAuth user) {
+		
+		String customerId = null;
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		ResultSet rs = null;
+		final String select_Query ="SELECT CUSTID FROM USER WHERE UNAME=? AND PASSWORD=?";
+		
+		try {
+			ps = con.prepareStatement(select_Query);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
+			rs = ps.executeQuery();
+			while(rs.next()){
+				customerId = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return customerId;
+	}
+	
+	public Customer getCustomerByCustId(String custId){
+		Customer customer = null;
+		ResultSet rs = null;
+		final String select_Query ="SELECT * FROM CUSTOMER WHERE CID=?";
+		try {
+			ps=con.prepareStatement(select_Query);
+			ps.setString(1, custId);
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				customer = new Customer();
+				customer.setFname(rs.getString("FNAME"));
+				customer.setLname(rs.getString("LNAME"));
+				customer.setMname(rs.getString("MNAME"));
+				customer.setCity(rs.getString("CITY"));
+				customer.setState(rs.getString("STATE"));
+				customer.setStreetAddress(rs.getString("ADDRESS"));
+				customer.setZipcode(rs.getString("ZIP"));
+				customer.setEmail(rs.getString("EMAIL"));
+				customer.setOutbalance(rs.getInt("OBALANCE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return customer;
+	}
+}
