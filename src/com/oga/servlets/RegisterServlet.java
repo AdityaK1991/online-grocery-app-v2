@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.oga.bean.Customer;
+import com.oga.bean.UserAuth;
 import com.oga.dao.RegisterDao;
 
 /**
@@ -56,7 +57,21 @@ public class RegisterServlet extends HttpServlet {
 	    String jsonRegister = new Gson().toJson(regObj);
 	    System.out.println("Request object: " + jsonRegister);
 	    
+		RegisterDao rgdao = new RegisterDao();
 
+	    // User
+	 		UserAuth user = new UserAuth();
+	 		
+	 		user.setUsername(regObj.get("email").getAsString());		
+	 		user.setPassword(regObj.get("password").getAsString());
+	 		
+	 		String ackUser = rgdao.addUser(user);
+
+	 		String jsonUser = new Gson().toJson(ackUser);
+	 		response.setContentType("application/json");
+	 		response.getWriter().write(jsonUser);
+
+	    // Customer
         Customer customer = new Customer();
 	
 		customer.setFname(regObj.get("fname").getAsString());
@@ -64,20 +79,17 @@ public class RegisterServlet extends HttpServlet {
 			customer.setMname(regObj.get("mname").getAsString());
 		}
 		customer.setLname(regObj.get("lname").getAsString());
-		customer.setEmail(regObj.get("email").getAsString());
 		customer.setStreetAddress(regObj.get("streetAddress").getAsString());
 		customer.setCity(regObj.get("city").getAsString());
 		customer.setState(regObj.get("state").getAsString());
 		customer.setZipcode(regObj.get("zipcode").getAsString());
 	    
-		//System.out.println(new Gson().toJson(customer));
-		RegisterDao rgdao = new RegisterDao();
-		String ack = rgdao.addUSer(customer);
+		String ackCustomer = rgdao.addCustomer(customer);
 		
-		String json = new Gson().toJson(ack);
+		String jsonCustomer = new Gson().toJson(ackCustomer);
 		response.setContentType("application/json");
-		response.getWriter().write(json);
-	
+		response.getWriter().write(jsonCustomer);
+			
 	}
 
 }

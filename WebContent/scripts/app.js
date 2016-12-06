@@ -12,7 +12,7 @@ angular
   .module('onlineGroceryStoreApp', [
     'ngAnimate',
     'ngCookies',
-    'ngResource',
+//    'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'

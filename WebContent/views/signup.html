@@ -124,17 +124,18 @@
 
 		<div class="form-group has-feedback" ng-show="!isCustomer">
 			<div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-bri	efcase"></i></span>
 				<input type="text" class="form-control" placeholder="Job Title" ng-model="register.jobTitle" required/>
 			</div>
 		</div>
       	<p ng-show="register.password !== register.rpassword" class="help-block">Passwords don't match!</p>
 
 
-		<a class="btn btn-block btn-primary" href="#/main" type="submit" ng-click="submitCustomerInfo()"
+		<a class="btn btn-block btn-primary" type="submit" ng-click="submitCustomerInfo()"
 		ng-class="{disabled: !register.fname || !register.lname || 
 					!reg.addressL1 ||
 					!register.city || !register.state || !register.zipcode ||
+					!register.email ||
 					!register.password || !register.rpassword ||
 					register.password !== register.rpassword ||
 					(!isCustomer  && (!register.salary || !register.jobTitle))}">Submit</a>

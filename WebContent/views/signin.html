@@ -9,7 +9,7 @@
 		<div class="form-group has-feedback">
 			<div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-				<input type="email" class="form-control" placeholder="Username" ng-model="signin.username" required/>
+				<input type="email" class="form-control" placeholder="Email" ng-model="signin.username" required/>
 			</div>
 		</div>
 
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 
-	    <a class="btn btn-block btn-primary" type="submit" ng-href="#/main" ng-class="{disabled: !signin.username || !signin.password}">Login</a>
+	    <a class="btn btn-block btn-primary" type="submit" ng-click="login()" ng-class="{disabled: !signin.username || !signin.password}">Login</a>
 
 		</form>
 
@@ -33,7 +33,7 @@
 
 	    <p>
 		    <h4>Haven't registered yet? 
-			    <a id="btn-signup" class="btn btn-primary" ng-href="#/register">Sign up</a>
+			    <a id="btn-signup" ng-href="#/register" class="btn btn-primary">Sign up</a>
 			</h4>
 	    </p>
 

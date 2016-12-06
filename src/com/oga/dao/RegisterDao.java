@@ -14,7 +14,43 @@ public class RegisterDao {
 	private Connection con;
 	private PreparedStatement ps;
 	
-	public String addUSer(Customer customer){
+	public String addUser(UserAuth user){
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		String ack = null;
+		//fname,Mname,Lname,email,sAddress,city,state,zipcode
+		final String insert_Query ="INSERT INTO USERS VALUES(?, ?, ?)";
+		
+		try {
+			ps = con.prepareStatement(insert_Query);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
+			ps.setInt(3, 1);
+			
+			int rowAffected = ps.executeUpdate();
+			
+			if(rowAffected != 0){
+				ack="saved";
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("User login info: " + ack);
+		return ack;
+	}
+	
+	public String addCustomer(Customer customer){
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		String ack = null;
@@ -52,25 +88,33 @@ public class RegisterDao {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Customer info:" + ack);
 		return ack;
 	}
 
-	public String authenticateUSer(UserAuth user) {
+	public boolean authenticateUSer(UserAuth user) {
 		
 		String customerId = null;
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		ResultSet rs = null;
-		final String select_Query ="SELECT CUSTID FROM USER WHERE UNAME=? AND PASSWORD=?";
+		
+		boolean status = false;
+		
+		final String select_Query ="SELECT CUSTID FROM USERS WHERE UNAME=? AND PASSWORD=?";
 		
 		try {
 			ps = con.prepareStatement(select_Query);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
 			rs = ps.executeQuery();
-			while(rs.next()){
-				customerId = rs.getString(1);
-			}
+//			while(rs.next()){
+//				customerId = rs.getString(1);
+//			}
+			
+			status = rs.next();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,7 +129,8 @@ public class RegisterDao {
 			}
 			
 		}
-		return customerId;
+		System.out.println("Customer ID exists: " + status);
+		return status;
 	}
 	
 	public Customer getCustomerByCustId(String custId){
