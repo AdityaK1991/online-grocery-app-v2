@@ -93,16 +93,17 @@ public class ProductServlet extends HttpServlet{
 	
 	private void handleGetAllProductsByCategory(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String prodInfo = request.getPathInfo();
-		String[] prodParts = prodInfo.split("/");
-		
-		String prodType = prodParts[0];
+		String prodType = request.getParameter("prodType");
+//		String[] prodParts = prodInfo.split("/");
+//		
+//		String prodType = prodParts[0];
 		
 		System.out.println("Product type: " + prodType);
 		
 		ProductDao pdao = new ProductDao();
 		List<Product> prodList = pdao.getAllProductsByCategory(prodType);
 		String json = new Gson().toJson(prodList);
+		System.out.println(json);
 		response.setContentType("application/json");
 		response.getWriter().write(json);
 	}

@@ -111,7 +111,7 @@ public class ProductDao {
 		
 		String json = gson.toJson(productList);
 		
-		System.out.println(json);
+		System.out.println("Product list by Category:" + json);
 		return productList;
 	}
 	
