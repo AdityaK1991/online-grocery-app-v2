@@ -1,33 +1,45 @@
 angular.module('onlineGroceryStoreApp')
-  .controller('NavSideMenuCtrl', ['ProductListByCategoryService', '$rootScope', '$scope', 
-                                  function (ProductListByCategoryService, $rootScope, $scope) {
+  .controller('NavSideMenuCtrl', ['ProductListByCategoryService', 'CartService', '$rootScope', '$scope', '$location', 
+                                  function (ProductListByCategoryService, CartService, $rootScope, $scope, $location) {
 
     $rootScope.isMenuVisible = true;
 
-    $scope.items = $rootScope.cartItems;
+//    $scope.items = $rootScope.cartItems;
 
-    $scope.productCategoryList = {};
-    // $scope.itemsCount = $scope.items.length;
+    $scope.productList = {};
+
+    $scope.cartCount = 0;
 
     $scope.showByCategory = function(category) {
     	console.log(category);
+		$location.path('products/product-category' + '/' + category);
     	
     	var promise = ProductListByCategoryService.getAllProductsByCategory(category);
     	
     	promise.then(
     			function(response) {
     				if(response.data !== null) {
-    					$scope.productCategoryList = response.data;
-    					angular.forEach($scope.productCategoryList in function(value, key) {
-    						console.log(key.prodName + ":" + value.prodName);
-    						$scope.products.push({
-    		   					 prodName  : value.prodName,
-    		   					 ProdPrice : value.ProdPrice,
-    		   					 ProdType : value.prodType
-    		   				 });
+    					$scope.productList = response.data;
+//    					console.log("Prod:" + $scope.productList.length);
+    					
+    					angular.forEach($scope.productList in function(value, key) {	
+    						console.log(value.prodName);
+//							$scope.productList.push({
+//    		   					 prodName  : value.prodName,
+//    		   					 ProdPrice : value.ProdPrice,
+//    		   					 ProdType : value.prodType
+//    		   				 });					
     	   			   });
     				}
     			});
     	
     };
+    
+	var promise = CartService.getCartCount();
+	
+	promise.then(function(response){
+		console.log("Cart: " + response.data);
+		$scope.cartCount = response.data;
+	});
+    
   }]);

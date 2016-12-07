@@ -11,15 +11,22 @@
   <div class="center card card-outline-primary whiteColor"><strong><h4>{{type}}</h4></strong></div>
   
   <div class="col-md-4 top-buffer" ng-repeat="product in products | filter:searchProduct">      
-    <a ng-href="#/products/1">
+    <a ng-href="#/products/1" ng-click="displayProductInfo(product)">
     <div class="card">
       <img class="card-image" src="images/yeoman.png" alt="Product">
       <div class="card-block">
         <span class="card-title"><h3>{{product.prodName}}</h3></span>
         <span class="card-text"><h4>${{product.ProdPrice}}</h4></span>
         <span class="card-text"><h4>{{product.prodType}}</h4></span>
-
-	<a class="btn btn-primary btn-xs glyphicon glyphicon-shopping-cart"></a>
+	</a>
+	<div class="row">
+	<div class="col-md-5">
+		<a class="btn btn-primary btn-xs glyphicon glyphicon-shopping-cart" ng-class="{disabled : product.disableCartButton}" ng-click="addToCart(product)"></a>
+	</div>
+	<div class="col-md-5">
+	<p ng-show="product.disableCartButton">Added!</p>
+	</div>
+	</div>
 	<!-- ng-href="#/products/1" -->
       </div>
     </div>

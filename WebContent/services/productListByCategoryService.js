@@ -10,7 +10,11 @@ angular.module('onlineGroceryStoreApp')
 		factory.getAllProductsByCategory = function(categoryName) {
 			console.log("Product category service triggered");
 
-			return $http.get('ProductServlet/getAllProductsByCategory' + "/" + categoryName);
+			var params = {
+					'prodType' : categoryName		
+			};
+			
+			return $http.post('ProductServlet/getAllProductsByCategory', params);
 
 		};
 	    

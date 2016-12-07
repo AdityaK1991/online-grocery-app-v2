@@ -1,11 +1,11 @@
-<div class="center card card-outline-blue whiteColor"><strong><h3>{{product.prodType}}</h3></strong></div>
+<div class="center card card-outline-blue whiteColor"><strong><h3>{{productList.prodType}}</h3></strong></div>
 <div class="input-group card paddingLR10 card-outline-primary center">
         <span class="input-group-btn paddingLR10 glyphicon glyphicon-search whiteColor"></span>
     <input type="text" ng-model="searchProductCategoryList" class="form-control" placeholder="Search Products">
 </div>
 
 <div class="jumbotron">  
-  <div class="col-md-4 top-buffer" ng-repeat="product in productCategoryList | filter:searchProductCategoryList">      
+  <div class="col-md-4 top-buffer" ng-repeat="product in productList | filter:searchProductCategoryList">      
     <a ng-href="#/products/1">
     <div class="card">
       <img class="card-image" src="images/yeoman.png" alt="Product">

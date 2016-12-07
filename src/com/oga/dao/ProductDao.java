@@ -15,6 +15,39 @@ public class ProductDao {
 	private Connection con;
 	private PreparedStatement ps;
 	
+	public List<Product> getProductInfo() throws Exception{
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		List<Product> productList = new ArrayList<Product>();
+		ResultSet rs = null;
+		
+		final String select_Query ="SELECT * FROM PRODUCT WHERE prodId = ?";
+		
+		try {
+			ps = con.prepareStatement(select_Query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				productList.add(formatResultSet(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(productList);
+		
+		System.out.println(json);
+		return productList;
+	}
+	
 	public String addProduct(Product product){
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
@@ -77,7 +110,6 @@ public class ProductDao {
 		
 		String json = gson.toJson(productList);
 		
-		System.out.println(json);
 		return productList;
 	}
 	
@@ -91,7 +123,7 @@ public class ProductDao {
 		
 		try {
 			ps=con.prepareStatement(select_Query);
-			ps.setString(0, prodType);
+			ps.setString(1, prodType);
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
