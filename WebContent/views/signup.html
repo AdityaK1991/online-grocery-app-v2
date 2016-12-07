@@ -41,17 +41,17 @@
 		<div class="form-group has-feedback">
 			<div class="input-group">
 	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-				<input type="text" class="form-control" placeholder="Address Line 1" ng-model="reg.addressL1" maxlength="100" required/>
+				<input type="text" class="form-control" placeholder="Address Line 1" ng-model="register.streetAddress" maxlength="100" required/>
 			</div>
 		</div>
 
-		<div class="form-group has-feedback">
+		<!-- <div class="form-group has-feedback">
 			<div class="input-group">
 	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 				<input type="text" class="form-control" placeholder="Address Line 2" ng-model="reg.addressL2" maxlength="100" required/>
 			</div>
 		</div>
-
+ -->
 		<div class="form-group has-feedback">
 			<div class="input-group">
 	          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
@@ -96,7 +96,7 @@
 		<div class="form-group has-feedback">
 			<div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-				<input type="email" class="form-control" placeholder="Email" ng-model="register.email" maxlength="100" required/>
+				<input type="text" class="form-control" placeholder="Email" ng-model="register.email" maxlength="100" required/>
 			</div>
 		</div>
 
@@ -133,7 +133,7 @@
 
 		<a class="btn btn-block btn-primary" type="submit" ng-click="submitCustomerInfo()"
 		ng-class="{disabled: !register.fname || !register.lname || 
-					!reg.addressL1 ||
+					!register.streetAddress ||
 					!register.city || !register.state || !register.zipcode ||
 					!register.email ||
 					!register.password || !register.rpassword ||

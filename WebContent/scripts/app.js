@@ -24,6 +24,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/products/product-category/:category', {
+        templateUrl: 'views/productListByCategory.html',
+        controller: 'NavSideMenuCtrl',
+        controllerAs: 'navSideMenu'
+      })
       .when('/products/:productId', {
         templateUrl: 'views/productDetail.html',
         controller: 'ProductDetailCtrl',

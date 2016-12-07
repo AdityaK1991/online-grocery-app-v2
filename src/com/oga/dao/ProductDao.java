@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.oga.bean.Product;
 import com.oga.bean.ProductPricing;
 
@@ -53,7 +54,7 @@ public class ProductDao {
 		List<Product> productList = new ArrayList<Product>();
 		ResultSet rs = null;
 		
-		final String select_Query ="SELECT * FROM PRODUCT;";
+		final String select_Query ="SELECT * FROM PRODUCT";
 		
 		try {
 			ps=con.prepareStatement(select_Query);
@@ -72,6 +73,45 @@ public class ProductDao {
 				e.printStackTrace();
 			}
 		}
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(productList);
+		
+		System.out.println(json);
+		return productList;
+	}
+	
+	public List<Product> getAllProductsByCategory(String prodType) throws Exception{
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		List<Product> productList = new ArrayList<Product>();
+		ResultSet rs = null;
+		
+		final String select_Query ="SELECT * FROM PRODUCT WHERE prodType = ?";
+		
+		try {
+			ps=con.prepareStatement(select_Query);
+			ps.setString(0, prodType);
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				productList.add(formatResultSet(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(productList);
+		
+		System.out.println(json);
 		return productList;
 	}
 	
@@ -151,6 +191,7 @@ public class ProductDao {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(ack);
 		return ack;		
 	}
 }

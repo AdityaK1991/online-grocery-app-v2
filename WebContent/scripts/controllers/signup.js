@@ -9,12 +9,16 @@ angular.module('onlineGroceryStoreApp')
     
     $scope.reg = {};
     
-    var addressL1 = $scope.reg.addressL1;
-    var addressL2 = $scope.addressL2;
-    
-    var address = addressL1 + ", " + addressL2;
+//    var addressL1 = $scope.reg.addressL1;
+//    var addressL2 = $scope.reg.addressL2;
+//    
+//    console.log(addressL1);
+//    
+//    var address = addressL1 + " " + addressL2;
 
-    $scope.register.streetAddress = address;
+//    $scope.register.streetAddress = address;
+    
+//    $scope.register.streetAddress = $scope.reg.addressL1;
     
     $scope.isCustomer = true;
 
@@ -28,7 +32,7 @@ angular.module('onlineGroceryStoreApp')
     	promise.then(
 			function(response) {
 		    	console.log(response.status);
-
+		    	
 		    	if(response.status === 200) {
     	    		$location.path('#/products');
     	    	} else {

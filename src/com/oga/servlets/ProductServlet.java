@@ -14,7 +14,9 @@ import com.oga.bean.Product;
 import com.oga.bean.ProductPricing;
 import com.oga.dao.ProductDao;
 
-@WebServlet({"/ProductServlet/addProduct", "/ProductServlet/getAllProducts", "/ProductServlet/addPricePerState", "/ProductServlet/updatePricePerState"})
+@WebServlet({"/ProductServlet/addProduct", "/ProductServlet/getAllProducts", 
+	"/ProductServlet/getAllProductsByCategory/*", "/ProductServlet/addPricePerState", 
+	"/ProductServlet/updatePricePerState"})
 public class ProductServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
@@ -30,6 +32,8 @@ public class ProductServlet extends HttpServlet{
 				handleAddProduct(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/getAllProducts")) {
 				handleGetAllProducts(request, response);
+			} else if (reqPath.equalsIgnoreCase("/ProductServlet/getAllProductsByCategory/*")) {
+				handleGetAllProductsByCategory(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/addPricePerState")) {
 				handleAddPricePerState(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/updatePricePerState")) {
@@ -82,6 +86,22 @@ public class ProductServlet extends HttpServlet{
 			HttpServletResponse response) throws Exception {
 		ProductDao pdao = new ProductDao();
 		List<Product> prodList = pdao.getAllProducts();
+		String json = new Gson().toJson(prodList);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+	}
+	
+	private void handleGetAllProductsByCategory(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String prodInfo = request.getPathInfo();
+		String[] prodParts = prodInfo.split("/");
+		
+		String prodType = prodParts[0];
+		
+		System.out.println("Product type: " + prodType);
+		
+		ProductDao pdao = new ProductDao();
+		List<Product> prodList = pdao.getAllProductsByCategory(prodType);
 		String json = new Gson().toJson(prodList);
 		response.setContentType("application/json");
 		response.getWriter().write(json);
