@@ -22,29 +22,29 @@
     <th class="col-xs-2">Manage</th>
     <!-- <th class="col-xs-2">Delete</th> -->
 
-    <tr ng-repeat="item in cartItems">
+    <tr ng-init="item.qty=1" ng-repeat="item in cartItems">
       <td>
-        {{ item.name }}
+        {{ item.prodName }}
       </td>
 
-      <td ng-hide="cartItemsCopy[$index].isCartItemEditable">
+      <td ng-hide="cartItems[$index].isCartItemEditable">
         {{ item.qty }}
       </td>
 
-      <td ng-show="cartItemsCopy[$index].isCartItemEditable">
+      <td ng-show="cartItems[$index].isCartItemEditable">
         <input type="number" ng-model="item.qty">
       </td>
       
       <td>
-        {{ item.qty * item.pricePerItem }}
+        {{ item.qty * item.ProdPrice }}
       </td> 
 
-      <td ng-hide="cartItemsCopy[$index].isCartItemEditable">
+      <td ng-hide="cartItems[$index].isCartItemEditable">
           <a class="glyphicon glyphicon-edit orangeColor" href="#/cart" ng-click="makeCartItemEditable($index)"/>
           <a class="glyphicon glyphicon-trash paddingL100 redColor" href="#/cart" ng-click="deleteCartItem($index)"/>
       </td> 
 
-      <td ng-show="cartItemsCopy[$index].isCartItemEditable">
+      <td ng-show="cartItems[$index].isCartItemEditable">
           <a class="glyphicon glyphicon-check greenColor" href="#/cart" ng-click="saveEditedCartItem($index)"/>
           <a class="glyphicon glyphicon-trash paddingL100 redColor" href="#/cart" ng-click="deleteCartItem($index)"/>
       </td> 
@@ -55,6 +55,9 @@
     </tr>
     </tbody>
     </table>
+    <div class="card">
+    <strong><h4>Total amount: {{}}</h4></strong>
+    </div>
 
     <a class="btn btn-primary pull-right" ng-href="#/order-payment">Checkout</a>
 

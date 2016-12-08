@@ -25,7 +25,7 @@ public class RegisterDao {
 			ps = con.prepareStatement(insert_Query);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
-			ps.setInt(3, 1);
+			ps.setString(3, user.getType());
 			
 			int rowAffected = ps.executeUpdate();
 			
@@ -102,7 +102,7 @@ public class RegisterDao {
 		
 		boolean status = false;
 		
-		final String select_Query ="SELECT CUSTID FROM USERS WHERE UNAME=? AND PASSWORD=?";
+		final String select_Query ="SELECT CID, UNAME FROM USERS, CUSTOMER WHERE USERS.UNAME=? AND USERS.PASSWORD=?";
 		
 		try {
 			ps = con.prepareStatement(select_Query);

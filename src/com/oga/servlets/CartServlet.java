@@ -29,7 +29,7 @@ import com.oga.dao.RegisterDao;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet({"/CartServlet", "/CartServlet/cartCount"})
+@WebServlet({"/CartServlet", "/CartServlet/addProduct", "/CartServlet/cartCount", "/CartServlet/updateCartProductQuantity"})
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,6 +41,7 @@ public class CartServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	
+    
 	private void handleCartData(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
@@ -56,7 +57,7 @@ public class CartServlet extends HttpServlet {
 	 		
 	 		cart.setCustId(cartObj.get("custId").getAsInt());
 	 		cart.setProdId(cartObj.get("prodId").getAsInt());
-//	 		cart.setCartQuantity(cartObj.get("cartQuantity").getAsInt());
+	 		cart.setCartQuantity(1);
 
 	 		String ackCart = cartDao.addProductToCart(cart);
 
@@ -66,6 +67,59 @@ public class CartServlet extends HttpServlet {
 	 		
 	 		response.setContentType("application/json");
 	 		response.getWriter().write(jsonCart);
+	}
+	
+	
+	private void handleCartProductQuantityUpdate(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		JsonParser parser = new JsonParser();
+		
+        JsonObject cartObj = (JsonObject) parser
+                .parse(request.getReader());
+		        
+		CartDao cartDao = new CartDao();
+
+	    // Cart
+	 		Cart cart = new Cart();
+	 		
+	 		cart.setCustId(cartObj.get("custId").getAsInt());
+	 		cart.setProdId(cartObj.get("prodId").getAsInt());
+	 		cart.setCartQuantity(cartObj.get("cartQuantity").getAsInt());
+
+	 		String ackCart = cartDao.updateProductQuantity(cart);
+
+	 		String jsonCart = new Gson().toJson(ackCart);
+	 		
+	 		System.out.println(jsonCart);
+	 		
+	 		response.setContentType("application/json");
+	 		response.getWriter().write(jsonCart);
+	}
+	
+	private void handleGetCartInfo(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JsonParser parser = new JsonParser();
+		
+		if(request != null && request.getReader() != null) {
+        JsonObject cartObj = (JsonObject) parser
+                .parse(request.getReader());
+               
+        String jsonObj = new Gson().toJson(cartObj);
+        
+        System.out.println("Cart Cust Obj:" + jsonObj);
+
+		int custId = cartObj.get("custId").getAsInt();
+		
+		CartDao cdao = new CartDao();
+		
+		List<Cart> cartList = cdao.getCartItemsByCustomerId(custId);
+		
+		String json = new Gson().toJson(cartList);
+		System.out.println("Cart Items: " + json);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+		}
 	}
 	
 	
@@ -107,9 +161,13 @@ public class CartServlet extends HttpServlet {
 		try {
 			if (reqPath.equalsIgnoreCase("/CartServlet/cartCount")) {
 				handleGetCartCount(request, response);
-			} else if(reqPath.equalsIgnoreCase("/CartServlet")) {
+			} else if(reqPath.equalsIgnoreCase("/CartServlet/addProduct")) {
 				handleCartData(request, response);
-			} 
+			} else if(reqPath.equalsIgnoreCase("/CartServlet")) {
+				handleGetCartInfo(request, response);
+			} else if(reqPath.equalsIgnoreCase("/CartServlet/updateCartProductQuantity")) {
+				handleCartProductQuantityUpdate(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

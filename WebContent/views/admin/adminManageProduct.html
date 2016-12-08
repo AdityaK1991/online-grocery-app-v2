@@ -8,7 +8,7 @@
     </span>
 
     <span ng-show="isProductEditable">
-        <a class="glyphicon glyphicon-ok-circle greenColor" ng-href="#/admin/products/1" ng-class="{disabled: !p.name || !p.price}" ng-click="saveProductInfo()"/>
+        <a class="glyphicon glyphicon-ok-circle greenColor" ng-href="#/admin/products/1" ng-class="{disabled: !product.prodName || !product.ProdPrice}" ng-click="updateProductInfo()"/>
     </span>
 
 </div>
@@ -20,16 +20,22 @@
         <img class="card-image customHeight250 center-block" src="images/yeoman.png" alt="Product">
     </div>
     <div class="col-md-5 pull-right">
-      <h3><strong><div class="title" ng-show="!isProductEditable">{{ p.name }}</div></strong></h3>
-      <span ng-show="isProductEditable"><h4><strong>Product name:</strong></h4><input type="text" ng-model="p.name" ng-show="isProductEditable"></span>
+      <h3><strong><div class="title" ng-show="!isProductEditable">{{ product.prodName }}</div></strong></h3>
+      <span ng-show="isProductEditable"><h4><strong>Product name:</strong></h4><input type="text" ng-model="product.prodName" ng-show="isProductEditable"></span>
 
       <h4><p class="greenColor" ng-show="{{p.qty > 0}}">This Product is in stock</p></h4>
       <h4><p class="redColor" ng-show="{{p.qty === 0}}">This Product is out of stock</p></h4>
 
-      <h4><strong><div class="title" ng-show="!isProductEditable">Price: ${{ p.price }}</div></strong></h4>
-      <span ng-show="isProductEditable"><h4><strong>Price: $</strong></h4><input type="text" ng-model="p.price"></span>
+      <h4><strong><div class="title" ng-show="!isProductEditable">Price: ${{ product.ProdPrice }}</div></strong></h4>
+      <span ng-show="isProductEditable"><h4><strong>Price: $</strong></h4><input type="text" ng-model="product.ProdPrice"></span>
 
-      <div ng-model="pQty"><strong>Quantity left: {{ p.qty }}</strong></div><br>
+	  <h4><strong><div class="title" ng-show="!isProductEditable">Type: {{ product.prodType }}</div></strong></h4>
+      <span ng-show="isProductEditable"><h4><strong>Type: </strong></h4><input type="text" ng-model="product.prodType"></span>
+	
+	  <h4><strong><div class="title" ng-show="!isProductEditable">Size: {{ product.ProdSize }}</div></strong></h4>
+      <span ng-show="isProductEditable"><h4><strong>Size: </strong></h4><input type="text" ng-model="product.ProdSize"></span>
+	
+      <div ng-model="pQty"><strong>Quantity left: {{ warehouse.qty }}</strong></div><br>
 
       <h4><strong><div class="title">About the Product</div></strong></h4>
 

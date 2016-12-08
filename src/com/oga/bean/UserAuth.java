@@ -1,7 +1,7 @@
 package com.oga.bean;
 
 public class UserAuth {
-	String username;
+	String username, password, type;
 	public String getUsername() {
 		return username;
 	}
@@ -14,6 +14,11 @@ public class UserAuth {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	String password;
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 }

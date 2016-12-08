@@ -17,8 +17,8 @@ import com.oga.bean.ProductPricing;
 import com.oga.dao.ProductDao;
 
 @WebServlet({"/ProductServlet/product", "/ProductServlet/addProduct", "/ProductServlet/getAllProducts", 
-	"/ProductServlet/getAllProductsByCategory", "/ProductServlet/addPricePerState", 
-	"/ProductServlet/updatePricePerState"})
+	"/ProductServlet/getAllProductsByCategory", "/ProductServlet/getAllProductsInCustomerCart", "/ProductServlet/addPricePerState", 
+	"/ProductServlet/updatePricePerState", "/ProductServlet/updateProductInfo"})
 public class ProductServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
@@ -33,8 +33,16 @@ public class ProductServlet extends HttpServlet{
 	
 	private void handleGetProductInfo(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
+		JsonParser parser = new JsonParser();
+		
+        JsonObject productObj = (JsonObject) parser
+                .parse(request.getReader());
+
+		int prodId = productObj.get("prodId").getAsInt();
+		
 		ProductDao pdao = new ProductDao();
-		List<Product> prodList = pdao.getProductInfo();
+		List<Product> prodList = pdao.getProductInfo(prodId);
 		String json = new Gson().toJson(prodList);
 		response.setContentType("application/json");
 		response.getWriter().write(json);
@@ -59,6 +67,42 @@ public class ProductServlet extends HttpServlet{
 		response.getWriter().write(json);
 	}
 
+	private void handleUpdateProductInfo(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		JsonParser parser = new JsonParser();
+		
+        JsonObject productObj = (JsonObject) parser
+                .parse(request.getReader());
+
+		int prodId = productObj.get("prodId").getAsInt();
+		String prodName = productObj.get("prodName").getAsString();
+		String prodType = productObj.get("prodType").getAsString();
+//		String prodType = productObj.get("prodType").getAsString();
+		String prodInfo = "product information";
+
+		int prodSize = productObj.get("ProdSize").getAsInt();
+		double prodPrice = productObj.get("ProdPrice").getAsDouble();
+		
+		Product prod = new Product();
+		prod.setProdId(prodId);
+		prod.setProdName(prodName);
+		prod.setProdPrice(prodPrice);
+		prod.setProdInfo(prodInfo);
+		prod.setProdSize(prodSize);
+		prod.setProdPrice(prodPrice);
+		prod.setProdType(prodType);
+		
+		ProductDao pdao = new ProductDao();
+		String ack = pdao.updateProductInfo(prod);
+		
+		String json = new Gson().toJson(ack);
+		
+		System.out.println(json);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+	}
+	
 	private void handleAddPricePerState(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int prodId = Integer.parseInt(request.getParameter("prodId"));
@@ -107,22 +151,55 @@ public class ProductServlet extends HttpServlet{
 		response.getWriter().write(json);
 	}
 
+	
+	private void handleGetAllProductsInCart(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		JsonParser parser = new JsonParser();
+		
+        JsonObject cartObj = (JsonObject) parser
+                .parse(request.getReader());
+                       
+		int prodId = cartObj.get("ProdId").getAsInt();
+		
+		ProductDao pdao = new ProductDao();
+		List<Product> prodList = pdao.getProductInfo(prodId);
+		String json = new Gson().toJson(prodList);
+		System.out.println(json);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+	}
+	
 	private void handleAddProduct(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		int prodId = Integer.parseInt(request.getParameter("prodId"));
-		String prodName = request.getParameter("prodName");
-		String prodType = request.getParameter("prodType");
-		String prodInfo = request.getParameter("prodInfo");
-		double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
-		int prodSize = Integer.parseInt(request.getParameter("prodSize"));
+//		int prodId = Integer.parseInt(request.getParameter("prodId"));
+		
+		JsonParser parser = new JsonParser();
+		
+        JsonObject productObj = (JsonObject) parser
+                .parse(request.getReader());
+        
+		String prodName = productObj.get("prodName").getAsString();
+		String prodType = productObj.get("prodType").getAsString();
+		String prodInfo = "";
+		if(productObj.get("ProdInfo") != null) {
+			prodInfo = productObj.get("ProdInfo").getAsString();
+		}
+		String prodImage = productObj.get("ProdImage").getAsString();
+		double prodPrice = productObj.get("ProdPrice").getAsDouble();
+		int prodSize = productObj.get("ProdSize").getAsInt();
+		String prodState = productObj.get("ProdState").getAsString();
+
 		
 		Product product = new Product();
-		product.setProdId(prodId);
+//		product.setProdId(prodId);
 		product.setProdName(prodName);
 		product.setProdType(prodType);
 		product.setProdInfo(prodInfo);
+		product.setProdInfo(prodImage);
 		product.setProdPrice(prodPrice);
 		product.setProdSize(prodSize);
+		product.setProdState(prodState);
 		
 		ProductDao pdao = new ProductDao();
 		String ack = pdao.addProduct(product);
@@ -145,10 +222,14 @@ public class ProductServlet extends HttpServlet{
 				handleGetAllProducts(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/getAllProductsByCategory")) {
 				handleGetAllProductsByCategory(request, response);
+			} else if (reqPath.equalsIgnoreCase("/ProductServlet/getAllProductsInCustomerCart")) {
+				handleGetAllProductsInCart(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/addPricePerState")) {
 				handleAddPricePerState(request, response);
 			} else if (reqPath.equalsIgnoreCase("/ProductServlet/updatePricePerState")) {
 				handleUpdatePricePerState(request, response);
+			} else if (reqPath.equalsIgnoreCase("/ProductServlet/updateProductInfo")) {
+				handleUpdateProductInfo(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

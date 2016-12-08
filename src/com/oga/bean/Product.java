@@ -3,7 +3,7 @@ package com.oga.bean;
 public class Product {
 
 	int prodId,ProdSize;
-	String prodName,prodType,ProdInfo,ProdImage;
+	String prodName,prodType,ProdInfo,ProdImage,ProdState;
 	double ProdPrice;
 	public int getProdId() {
 		return prodId;
@@ -48,5 +48,10 @@ public class Product {
 	public void setProdPrice(double prodPrice) {
 		ProdPrice = prodPrice;
 	}
-
+	public String getProdState() {
+		return ProdState;
+	}
+	public void setProdState(String prodState) {
+		ProdState = prodState;
+	}
 }

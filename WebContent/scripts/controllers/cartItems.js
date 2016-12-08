@@ -1,21 +1,56 @@
 angular.module('onlineGroceryStoreApp')
-  .controller('CartItemsCtrl', function ($rootScope, $scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('CartItemsCtrl', [ 'CartService', 'ProductService', '$rootScope', '$scope', '$cookieStore',
+                                 function (CartService, ProductService, $rootScope, $scope, $cookieStore) {
 
     $rootScope.isMenuVisible = true;
 
     $rootScope.isAdminMenuVisible = false;
 
+    $scope.cartItems = ProductService.getCartItems();
 
-    $scope.cartItems = [{id: 1, name: 'test1', qty:2, pricePerItem:50}, 
-    {id: 2, name: 'test1', qty:2, pricePerItem:50},
-    {id: 3, name: 'test1', qty:2, pricePerItem:50},
-    {id: 4, name: 'test1', qty:2, pricePerItem:50}];
+	var promiseCartItems = CartService.getCartItems();
+		
+	promiseCartItems.then(
+			function(response) {
+				console.log("All Products in Cart:" + response.data);
+				
+				if(response.data !== null) {
+					$scope.products = response.data;
+					angular.forEach($scope.products in function(value, key) {
+	//					console.log(key.prodName + ":" + value.prodName);
+						$scope.products.push({
+		   					 prodName  : value.prodName,
+		   					 ProdPrice : value.ProdPrice,
+		   					 cartQuantity : value.cartQuantity,
+		   				 });
+	   			   });
+				}
+			}
+		);  
+	
+//	angular.forEach($scope.products in function(value, key) {
+//		ProductService.getAllProductsInCart(
+//				JSON.stringify(
+//						{'ProdId' : value.ProdId})
+//				 );
+//	   });
+	
+//	promiseAllProducts.then(
+//			function(response) {					
+//				if(response.status === 200) {
+//					console.log("All Cart items displayed");
+//				}
+//			}
+//		);      
+	
+	
+    	
+//    $scope.cartItems = [{id: 1, name: 'test1', qty:2, pricePerItem:50}, 
+//    {id: 2, name: 'test1', qty:2, pricePerItem:50},
+//    {id: 3, name: 'test1', qty:2, pricePerItem:50},
+//    {id: 4, name: 'test1', qty:2, pricePerItem:50}];
 
+	
     $scope.cartItemsCopy = [];
 
     angular.forEach($scope.cartItems, function(value, key) {
@@ -28,16 +63,16 @@ angular.module('onlineGroceryStoreApp')
 
     $scope.makeCartItemEditable = function($index) {
     	// $scope.cartItems.id = $index;
-    	$scope.cartItemsCopy[$index].isCartItemEditable = true;
+    	$scope.cartItems[$index].isCartItemEditable = true;
     };
 
     $scope.saveEditedCartItem = function($index) {
     	// $scope.cartItems.id = $index;
-    	$scope.cartItemsCopy[$index].isCartItemEditable = false;
-    }
+    	$scope.cartItems[$index].isCartItemEditable = false;
+    };
 
     $scope.deleteCartItem = function($index) {
     	$scope.cartItems.splice($index, 1);
-    }
+    };
 
-  });
+  }]);

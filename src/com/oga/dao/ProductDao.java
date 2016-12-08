@@ -15,7 +15,7 @@ public class ProductDao {
 	private Connection con;
 	private PreparedStatement ps;
 	
-	public List<Product> getProductInfo() throws Exception{
+	public List<Product> getProductInfo(int prodId) throws Exception{
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		List<Product> productList = new ArrayList<Product>();
@@ -25,6 +25,7 @@ public class ProductDao {
 		
 		try {
 			ps = con.prepareStatement(select_Query);
+			ps.setInt(1, prodId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
@@ -53,17 +54,19 @@ public class ProductDao {
 		con = ds.getNewConnection();
 		String ack = null;
 		
-		final String insert_Query ="INSERT INTO PRODUCT VALUES(?, ?, ?, ?, ?, ?);";
+		final String insert_Query ="INSERT INTO PRODUCT VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			ps = con.prepareStatement(insert_Query);
-			ps.setInt(1, product.getProdId() );
+			ps.setInt(1, 1);
 			ps.setString(2, product.getProdName());
 			ps.setString(3, product.getProdType());
 			ps.setString(4, product.getProdInfo());
 			ps.setDouble(5, product.getProdPrice());
 			ps.setInt(6, product.getProdSize());
-			
+			ps.setString(7, product.getProdImage());
+			ps.setString(8, product.getProdState());
+
 			int rowAffected = ps.executeUpdate();
 			
 			if(rowAffected != 0){
@@ -192,6 +195,41 @@ public class ProductDao {
 				e.printStackTrace();
 			}
 		}
+		return ack;		
+	}
+	
+	public String updateProductInfo(Product prod)
+	{
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		String ack = null;
+		
+		final String update_Query ="UPDATE Product SET prodName = ?, prodType = ?, ProdPrice = ?, ProdSize = ?, ProdInfo = ? WHERE ProdId = ?";
+		
+		try {
+			ps = con.prepareStatement(update_Query);
+			ps.setString(1, prod.getProdName());
+			ps.setString(2, prod.getProdType());
+			ps.setDouble(3, prod.getProdPrice());
+			ps.setInt(4, prod.getProdSize());
+			ps.setString(5, prod.getProdInfo());
+			ps.setInt(6, prod.getProdId());
+
+			int rowAffected = ps.executeUpdate();
+			
+			if(rowAffected != 0){
+				ack="updated";
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(ack);
 		return ack;		
 	}
 	

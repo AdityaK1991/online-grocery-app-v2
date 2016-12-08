@@ -131,7 +131,7 @@
       	<p ng-show="register.password !== register.rpassword" class="help-block">Passwords don't match!</p>
 
 
-		<a class="btn btn-block btn-primary" type="submit" ng-click="submitCustomerInfo()"
+		<a class="btn btn-block btn-primary" type="submit" ng-href="#/main" ng-click="submitCustomerInfo()"
 		ng-class="{disabled: !register.fname || !register.lname || 
 					!register.streetAddress ||
 					!register.city || !register.state || !register.zipcode ||

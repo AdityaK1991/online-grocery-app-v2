@@ -64,7 +64,8 @@ public class RegisterServlet extends HttpServlet {
 	 		
 	 		user.setUsername(regObj.get("email").getAsString());		
 	 		user.setPassword(regObj.get("password").getAsString());
-	 		
+	 		user.setType(regObj.get("type").getAsString());
+
 	 		String ackUser = rgdao.addUser(user);
 
 	 		String jsonUser = new Gson().toJson(ackUser);

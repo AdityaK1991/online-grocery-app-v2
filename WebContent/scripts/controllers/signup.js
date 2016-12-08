@@ -25,6 +25,8 @@ angular.module('onlineGroceryStoreApp')
     $scope.status;
     
     $scope.submitCustomerInfo = function() {
+    	$scope.register.type = 'customer';
+
     	console.log($scope.register);
     	
     	var promise = LoginService.register($scope.register);
@@ -32,9 +34,9 @@ angular.module('onlineGroceryStoreApp')
     	promise.then(
 			function(response) {
 		    	console.log(response.status);
-		    	
+	    		$location.path('#/products');
+
 		    	if(response.status === 200) {
-    	    		$location.path('#/products');
     	    	} else {
     	    		alert('Registration error');
     	    	}
@@ -44,8 +46,10 @@ angular.module('onlineGroceryStoreApp')
 
     $scope.updateUserRole = function(roleId) {
       if(roleId === 0) {
+    	$scope.register.type = 'customer';
         $scope.isCustomer = true;
       } else if(roleId === 1) {
+      	$scope.register.type = 'admin';
         $scope.isCustomer = false;
       }
     };

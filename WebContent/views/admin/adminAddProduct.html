@@ -15,63 +15,70 @@
 
         <div class="form-group has-feedback">
           <div class="input-group">
-                <span class="input-group-addon">Product Name</i></span>
-            <input type="text" class="form-control" placeholder="Name" ng-model="p.name" maxlength="100" required/>
+                <span class="input-group-addon ">Product Name</i></span>
+            <input type="text" class="form-control" placeholder="Name" ng-model="product.prodName" maxlength="100" required/>
           </div>
         </div>
 
+		<div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon ">Product Image URL</i></span>
+            <input type="text" class="form-control" placeholder="Image URL" ng-model="product.ProdImage" maxlength="100" required/>
+          </div>
+        </div>
+        
         <div class="form-group has-feedback">
           <div class="input-group">
                 <span class="input-group-addon">Product Category</i></span>
-                <select ng-model="selectedCategory" class="form-control" ng-options="y for (x, y) in ['Vegetables', 'Beverages', 'Spices']">
+                <select ng-model="product.prodType" class="form-control" ng-options="y for (x, y) in ['Vegetables', 'Beverages', 'Spices']">
                 </select>          
             </div>
+        </div>
+        
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon ">$</i></span>
+            <input type="number" class="form-control" placeholder="Price" ng-model="product.ProdPrice" maxlength="100" required/>
+          </div>
+        </div>
+        
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon ">Quantity</i></span>
+            <input type="number" class="form-control" placeholder="Quantity" ng-model="warehouse.qty" maxlength="100" required/>
+          </div>
+        </div>
+                
+        <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon ">Product Size</i></span>
+            <input type="number" class="form-control" placeholder="Size" ng-model="product.ProdSize" maxlength="100" required/>
+          </div>
         </div>
 
 
         <div class="form-group has-feedback">
           <div class="input-group">
-                <span class="input-group-addon">Product Availability in State</i></span>
-                <select ng-model="selectedState" class="form-control" ng-options="y for (x, y) in ['IL', 'NY', 'CA']">
+                <span class="input-group-addon">Warehouse</i></span>
+                <select ng-model="product.ProdState" class="form-control" ng-options="y for (x, y) in ['IL', 'NY', 'CA']">
                 </select>   
-                <span class="input-group-addon btn btn-primary" ng-class="{disabled : !selectedState}" ng-click="addStateForProduct(selectedState)"> Add
-                </span>
           </div>
-          <div class="card" ng-repeat="pState in productStates"> 
-            <span class="marginLR50"><strong>{{pState.state}}</strong></span>
-            <a class="glyphicon glyphicon-remove-circle redColor pull-right marginLR50" ng-click="deleteStateForProduct($index)"/>
+          </div>
+          
+          <div class="form-group has-feedback">
+          <div class="input-group">
+                <span class="input-group-addon ">Product Description</i></span>
+                <textarea placeholder="Description" ng-model="product.ProdInfo"></textarea>
           </div>
         </div>
-
+        
     </form>
-
-      <h3><strong><div class="title">Product name</div></strong></h3>
-
-      <h4><p class="greenColor" ng-show="{{pQty > 0}}">This Product is in stock</p></h4>
-      <h4><p class="redColor" ng-show="{{pQty === 0}}">This Product is out of stock</p></h4>
-
-      <h4><strong><div class="title">Price: ${{ pPrice }}</div></strong></h4>
- 
-      <div ng-model="pQty" ng-if="pQty>0"><h5><strong>Quantity left: {{ pQty }}</strong></h5></div>
-
-      <h4><strong><span class="title"><h4><strong>Quantity:</strong></h4></span></strong></h4> 
-      <input type="number" ng-model="pCount" value="1" min="1" max="{{pQty}}">  
-
-
-      <button class="btn btn-primary" type="submit" ng-show="pQty > 0" ng-disabled="!pCount" ng-href="#/cart">Add to Cart</button><br><br>
-
-      <div ng-show="pCount > pQty">Quantity cannot be more than {{pQty}}</div>
-
-      <div><h4><strong>About the Product</strong></h4></div>
-
-      <ul>
-        <li>sdsdfsdfsfdsdf</li>
-        <li>sdsdfsdfsfdsdf</li>
-        <li>sdsdfsdfsfdsdf</li>
-        <li>sdsdfsdfsfdsdf</li>
-        <li>sdsdfsdfsfdsdf</li>
-        <li>sdsdfsdfsfdsdf</li>
-      </ul>
+    
+    <button class="btn btn-primary" type="submit" ng-click="createProduct()" 
+    	ng-disabled="!product.prodName || !product.prodType || !product.ProdPrice ||
+    				!product.ProdImage || !product.ProdSize ||
+    				!product.ProdState">Create</button><br><br>
+    
     </div>
 </div>
 

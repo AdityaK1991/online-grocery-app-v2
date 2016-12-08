@@ -26,7 +26,6 @@ public class CartDao {
 			ps = con.prepareStatement(insert_Query);
 			ps.setInt(1, cart.getCustId());
 			ps.setInt(2, cart.getProdId());
-//			ps.setInt(3, 1); 
 			ps.setInt(3, cart.getCartQuantity()); 
 		
 			int rowAffected = ps.executeUpdate();
@@ -47,13 +46,44 @@ public class CartDao {
 		return ack;
 	}
 	
+	public String updateProductQuantity(Cart cart){
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		String ack = null;
+		
+		final String insert_Query ="UPDATE Cart SET cartQuantity = ? WHERE custId = ? AND prodId = ?";
+		
+		try {
+			ps = con.prepareStatement(insert_Query);
+			ps.setInt(1, cart.getCartQuantity()); 
+			ps.setInt(2, cart.getCustId()); 
+			ps.setInt(3, cart.getProdId());
+		
+			int rowAffected = ps.executeUpdate();
+			
+			if(rowAffected != 0){
+				ack="saved";
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Cart Item updated: " + ack);
+		return ack;
+	}
+	
 	public List<Cart> getCartItemsByCustomerId(int customerId) throws Exception{
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		List<Cart> cartItemsList = new ArrayList<Cart>();
 		ResultSet rs = null;
 		
-		final String select_Query ="SELECT * FROM Cart WHERE CustId = ?;";
+		final String select_Query ="SELECT prodId, cartQuantity FROM Cart WHERE CustId = ?";
 		
 		try {
 			ps=con.prepareStatement(select_Query);
@@ -73,6 +103,7 @@ public class CartDao {
 				e.printStackTrace();
 			}
 		}
+		
 		return cartItemsList;
 	}
 	
@@ -120,8 +151,11 @@ public class CartDao {
 		}
 		Cart cartBean = new Cart();
 		
-		cartBean.setCustId(rs.getInt("CustId"));
+//		cartBean.setCustId(rs.getInt("CustId"));
 		cartBean.setProdId(rs.getInt("prodId"));
+//		cartBean.setProdId(rs.getInt("prodName"));
+//		cartBean.setProdId(rs.getInt("prodType"));
+//		cartBean.setProdId(rs.getInt("ProdPrice"));
 		cartBean.setCartQuantity(rs.getInt("cartQuantity"));
 		
 		return cartBean;

@@ -47,6 +47,8 @@ angular.module('onlineGroceryStoreApp')
 	
 	$scope.addToCart = function(productItem) {
 
+		ProductService.addProductToCart(productItem);
+		
 		console.log(productItem);
 		var promise = CartService.addProductToCart(productItem);
 		

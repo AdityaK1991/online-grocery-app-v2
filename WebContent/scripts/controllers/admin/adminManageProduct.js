@@ -1,10 +1,6 @@
 angular.module('onlineGroceryStoreApp')
-  .controller('AdminManageProductCtrl', function ($rootScope, $scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('AdminManageProductCtrl', ['ProductService', '$rootScope', '$scope',
+                                         function (ProductService, $rootScope, $scope) {
 
     $rootScope.isMenuVisible = false;
 
@@ -12,12 +8,31 @@ angular.module('onlineGroceryStoreApp')
     
     $scope.isProductEditable = false;
 
+    $scope.product = ProductService.getProductInfoForDisplay();
+
+   
     $scope.enableProductEditor = function() {
 	    $scope.isProductEditable = true;    	
-    }
+    };
 
-    $scope.saveProductInfo = function() {
+    $scope.updateProductInfo = function() {
+    	
+    	console.log($scope.product);
+    	
 	    $scope.isProductEditable = false;
-    }
+	    
+	    var promise = ProductService.updateProductInfo($scope.product);
+	    
+	    promise.then(
+	    		function(response) {
+	    			console.log("All Products:" + response.data);
+	    			
+	    			if(response.status === 200) {
+	    				alert('Product updated!');
+	    			}
+	    		}
+	    	);
+	    
+    };
 
-  });
+  }]);
