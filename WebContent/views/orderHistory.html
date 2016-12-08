@@ -1,9 +1,8 @@
 <div class="center card card-outline-blue whiteColor"><strong><h3>Order History</h3></strong></div>
 
-<div ng-repeat="orderId in ['1', '2', 3]">
   <div class="center card card-outline-primary whiteColor"><strong><h4>Order {{orderId}}</h4></strong></div>
 
-  <div class="row custom-jumbotron" ng-repeat="a in ['1', '2', 3]">
+  <div class="row custom-jumbotron" ng-repeat="item in cartItems">
   <div class="col-md-5 card">
     <!-- <div class="thumbnail">
       <img src="images/yeoman.png" class="img-responsive customHeight" alt="">
@@ -15,10 +14,9 @@
   </div>
 
   <div class="col-md-5"><br>
-    <p><strong>Product: {{ pName }}</strong></p>
-    <p><strong>Price: {{ pPrice }}</strong></p>
-    <p><strong>Quantity purchased: {{ pQty }}</strong></p>
-    <p><strong>Purchase Date: {{ pPurchaseDate }}</strong></p>
+    <p><strong>Product: {{ item.prodName }}</strong></p>
+    <p><strong>Price: {{ item.ProdPrice }}</strong></p>
   </div>
-  </div>
-</div>
+    </div>
+  <div class="center card"><strong><h4>Order total: {{ total }}</h4></strong></div>
+    

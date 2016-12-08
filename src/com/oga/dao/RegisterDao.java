@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.google.gson.Gson;
 import com.oga.bean.Customer;
 import com.oga.bean.UserAuth;
 
@@ -133,13 +134,13 @@ public class RegisterDao {
 		return customerId;
 	}
 	
-	public Customer getCustomerByCustId(String custId){
+	public String getCustomerByCustId(int custId){
 		Customer customer = null;
 		ResultSet rs = null;
 		final String select_Query ="SELECT * FROM CUSTOMER WHERE CID=?";
 		try {
 			ps=con.prepareStatement(select_Query);
-			ps.setString(1, custId);
+			ps.setInt(1, custId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
@@ -168,6 +169,11 @@ public class RegisterDao {
 			}
 			
 		}
-		return customer;
+		
+		String jsonCustomer = new Gson().toJson(customer);
+		
+		System.out.println("Customer: " + jsonCustomer);
+		
+		return jsonCustomer;
 	}
 }

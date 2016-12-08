@@ -13,5 +13,6 @@ angular.module('onlineGroceryStoreApp')
     
     $scope.name = $scope.product.prodName;
     $scope.price = $scope.product.ProdPrice;
+    $scope.category = $scope.product.prodType;
   
 }]);

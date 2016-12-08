@@ -1,13 +1,16 @@
 angular.module('onlineGroceryStoreApp')
-  .controller('OrderHistoryCtrl', function ($rootScope, $scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('OrderHistoryCtrl', ['$rootScope', '$scope', '$cookieStore',
+                                   function ($rootScope, $scope, $cookieStore) {
+ 
 
     $rootScope.isMenuVisible = true;
     
     $rootScope.isAdminMenuVisible = false;
 
-  });
+    $scope.cartItems = $cookieStore.get('cartItems');
+    
+    $scope.total = $cookieStore.get('orderTotal');
+
+    console.log($scope.cartItems);
+    
+  }]);

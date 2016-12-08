@@ -4,11 +4,11 @@
 
 <div class="card custom-jumbotron">
 <div class="title"><h4><strong>Order Summary</strong></h4></div>
-	<p>Number of items: {{itemCount}}</p>
-	<p>Price: {{itemCount * price}}</p>
-	<p>Shipping and handling: {{itemCount * price * 0.15}}</p>
-	<p>Estimated tax: {{itemCount * price * 0.10}}</p>
-	<p><strong>Order total: {{(itemCount * price ) + (itemCount * price * 0.15) + (itemCount * price * 0.10)}}</strong></p>
+	<p>Number of items: {{count}}</p>
+	<p>Price: {{count * 94}}</p>
+	<p>Shipping and handling: {{count * 94 * 0.15}}</p>
+	<p>Estimated tax: {{count * 94 * 0.10}}</p>
+	<p><strong>Order total: {{(count * 94 ) + (count * 94 * 0.15) + (count * 94 * 0.10)}}</strong></p>
 	</div>
 
 <div class="card custom-jumbotron">
@@ -16,20 +16,22 @@
 <address>
 	<strong>{{ fName }} {{ lName }}</strong><br>
 	{{ addressL1 }}<br>
-	{{ addressL1 }}<br>
 	{{ city }}, {{ state }} {{ zip }}<br>
 </address>
 </div>
 
 <div class="card custom-jumbotron">
 <div class="title"><h4><strong>Payment Method</strong></h4></div>
-	<div ng-repeat="card in cards">
+	<!-- <div ng-repeat="card in paymentMethod">  -->
 		<label>
 		  <input type="radio">
 		  	Card 1
 		</label>
-		<p>Card ending in {{card.cardNumber}}</p>
-	</div>			
+		<p>Card Name: {{paymentMethod.cardName}}</p>
+		<p>Card: {{paymentMethod.cardNumber}}</p>
+		<p>Validity: {{paymentMethod.cardMM}}/{{paymentMethod.cardYYYY}}</p>
+		
+	<!--  </div> -->			
 </div>
 </div>
-<button class="btn btn-primary">Place order</button>
+<a class="btn btn-primary" href="#/main" ng-click="placeOrder()">Place order</a>

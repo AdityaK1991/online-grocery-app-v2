@@ -2,10 +2,6 @@
 		
 <!-- 	<form class="form" ng-submit="login()" accept-charset="UTF-8">
  -->		
- <button ng-click="getDataFromServer()">Fetch data from server</button>
-           <p>First Name : {{product.productName}}</p>
-           <p>Last Name : {{product.price}}</p>
-           
 	<table class="table table-hover">
 
 
@@ -18,7 +14,7 @@
 			</span>
 
 			<span ng-show="editorCustomerInfoEnabled">
-		  		<a class="glyphicon glyphicon-ok-circle greenColor" href="#/customer-info" ng-class="{disabled: !editableFName || !editableLName || !editableAddressL1 || !editableAddressL2 || !editableCity || !editableState || !editableZip || !editableCountry || !editablePhone }" ng-click="saveCustomerInfo()"/>
+		  		<a class="glyphicon glyphicon-ok-circle greenColor" href="#/customer-info" ng-class="{disabled: !editableFName || !editableLName || !editableAddressL1 || !editableCity || !editableState || !editableZip || !editablePhone }" ng-click="saveCustomerInfo()"/>
 			</span>
 		</div>
 
@@ -26,7 +22,7 @@
 			<th class="col-xs-2">First Name</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ fName }}
+			  {{ customer.fname }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -40,7 +36,7 @@
 			<th  class="col-xs-2">Last Name</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ lName }}
+			  {{ customer.lname }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -49,10 +45,10 @@
 		</tr>
 
 		<tr>
-			<th  class="col-xs-2">Address line 1</th>
+			<th  class="col-xs-2">Address</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ addressL1 }}
+			  {{ customer.streetAddress }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -60,25 +56,11 @@
 			</td>
 		</tr>
 
-
-		<tr>
-			<th  class="col-xs-2">Address line 2</th>
-
-			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ addressL2 }}
-			</td>
-
-			<td ng-show="editorCustomerInfoEnabled">
-			  <input class="form-control" ng-model="editableAddressL2" ng-show="editorCustomerInfoEnabled">
-			</td>
-		</tr>
-
-
 		<tr>
 			<th  class="col-xs-2">City</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ city }}
+			  {{ customer.city }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -90,7 +72,7 @@
 			<th  class="col-xs-2">State/Province/Region</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ state }}
+			  {{ customer.state }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -102,7 +84,7 @@
 			<th  class="col-xs-2">Zip</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ zip }}
+			  {{ customer.zip }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">
@@ -110,23 +92,12 @@
 			</td>
 		</tr>
 
-		<tr>
-			<th  class="col-xs-2">Country</th>
-
-			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ country }}
-			</td>
-
-			<td ng-show="editorCustomerInfoEnabled">
-			  <input class="form-control" ng-model="editableCountry" ng-show="editorCustomerInfoEnabled">
-			</td>
-		</tr>
-
+	
 		<tr>
 			<th  class="col-xs-2">Phone number</th>
 
 			<td ng-hide="editorCustomerInfoEnabled">
-			  {{ phone }}
+			  {{ customer.phone }}
 			</td>
 
 			<td ng-show="editorCustomerInfoEnabled">

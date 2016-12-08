@@ -6,8 +6,24 @@ angular.module('onlineGroceryStoreApp')
 
     $rootScope.isAdminMenuVisible = false;
 
-    $scope.cartItems = ProductService.getCartItems();
-
+//    $scope.cartItems = ProductService.getCartItems();
+    
+    $scope.cartItems = $cookieStore.get('cartItems');
+   
+    console.log($scope.cartItems);
+    
+    var totalAmount = 0;
+    
+    $scope.qty = 1;
+    
+    
+    
+//    angular.forEach($scope.cartItems in function(value, key) {
+//    	
+//    });
+    
+    
+    
 	var promiseCartItems = CartService.getCartItems();
 		
 	promiseCartItems.then(

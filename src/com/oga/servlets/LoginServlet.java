@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.oga.bean.Customer;
 import com.oga.bean.UserAuth;
 import com.oga.dao.RegisterDao;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet({"/LoginServlet", "/LoginServlet/getUserDetails"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,7 +43,50 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String reqPath = request.getServletPath();
+		try {
+			if (reqPath.equalsIgnoreCase("/LoginServlet")) {
+				handleLogin(request, response);
+			} else if (reqPath.equalsIgnoreCase("/LoginServlet/getUserDetails")) {
+				handleAccountDetails(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		}
+	
+	private void handleAccountDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		JsonParser parser = new JsonParser();
 		
+        JsonObject regObj = (JsonObject) parser
+                .parse(request.getReader());
+		        
+	    String jsonRegister = new Gson().toJson(regObj);
+	    System.out.println("Request object: " + jsonRegister);		
+		
+		Customer cust = new Customer();
+		
+		int custId = regObj.get("cId").getAsInt();
+		cust.setCustId(custId);
+		System.out.println("Customer ID:" + custId);
+		
+		RegisterDao rgdao = new RegisterDao();
+		String customer = rgdao.getCustomerByCustId(custId);
+		if(customer != null) {
+			response.setContentType("application/json");
+			response.getWriter().write(customer);
+		} else {
+			String errorResponse = new Gson().toJson("error");
+			response.setStatus(HttpServletResponse.SC_ACCEPTED);
+			response.setContentType("application/json");
+			response.getWriter().write(errorResponse);
+		}
+		
+		System.out.println(response.getStatus());
+	}
+	
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JsonParser parser = new JsonParser();
 		
         JsonObject regObj = (JsonObject) parser
@@ -75,6 +119,5 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		System.out.println(response.getStatus());
-			
-		}
+	}
 }

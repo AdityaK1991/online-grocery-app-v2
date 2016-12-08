@@ -1,36 +1,41 @@
  angular.module('onlineGroceryStoreApp')
-  .controller('CustomerInfoCtrl', function ($rootScope, $scope, $http) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  
+  .controller('CustomerInfoCtrl', ['LoginService', '$rootScope', '$scope', '$http', '$cookieStore',
+                                   function (LoginService,$rootScope, $scope, $http, $cookieStore) {
+   
     $rootScope.isMenuVisible = true;
 
     $rootScope.isAdminMenuVisible = false;
 
  /* First Name */
+    $scope.customer = {};
+    
+  $scope.customer.fname = "John";
+  $scope.customer.lname = "Smith";
+  $scope.customer.streetAddress = "2901 S King Drive";
+  $scope.customer.city = "Chicago";
+  $scope.customer.state = "IL";
+  $scope.customer.zip = 60616;
+  $scope.customer.country = "United States";
+  $scope.customer.phone = 9876543210;
 
-//  $scope.fName = "Test FName";
-//  $scope.lName = "Test LName";
-//  $scope.addressL1 = "Address L1";
-//  $scope.addressL2 = "Address L2";
-//  $scope.city = "City";
-//  $scope.state = "State";
-//  $scope.zip = 60616;
-//  $scope.country = "Country";
-//  $scope.phone = 1234567890;
-
+  $cookieStore.put('fname', $scope.customer.fname);
+  $cookieStore.put('lname', $scope.customer.lname);
+  $cookieStore.put('address', $scope.customer.streetAddress);
+  $cookieStore.put('city', $scope.customer.city);
+  $cookieStore.put('state', $scope.customer.state);
+  $cookieStore.put('zip', $scope.customer.zip);
+  $cookieStore.put('phone', $scope.customer.phone);
+  
+  LoginService.saveCustomerInfoToDisplay($scope.customer);
+  
   $scope.editorCustomerInfoEnabled = false;
   
   $scope.enableCustomerInfoEditor = function() {
     $scope.editorCustomerInfoEnabled = true;
-    $scope.editableFName = $scope.customer.fName;
-    $scope.editableMName = $scope.customer.mName;
-    $scope.editableLName = $scope.customer.lName;
-    $scope.editableAddressL1 = $scope.customer.addressL1;
-    $scope.editableAddressL2 = $scope.customer.addressL2;
+    $scope.editableFName = $scope.customer.fname;
+    $scope.editableMName = $scope.customer.mname;
+    $scope.editableLName = $scope.customer.lname;
+    $scope.editableAddressL1 = $scope.customer.streetAddress;
     $scope.editableCity = $scope.customer.city;
     $scope.editableState = $scope.customer.state;
     $scope.editableZip = $scope.customer.zip;
@@ -43,11 +48,10 @@
   };
   
   $scope.saveCustomerInfo = function() {
-    $scope.customer.fName = $scope.editableFName;
-    $scope.customer.mName = $scope.editableMName;
-    $scope.customer.lName = $scope.editableLName;
-    $scope.customer.addressL1 = $scope.editableAddressL1;
-    $scope.customer.addressL2 = $scope.editableAddressL2;
+    $scope.customer.fname = $scope.editableFName;
+    $scope.customer.mname = $scope.editableMName;
+    $scope.customer.lname = $scope.editableLName;
+    $scope.customer.streetAddress = $scope.editableAddressL1;
     $scope.customer.city = $scope.editableCity;
     $scope.customer.state = $scope.editableState;
     $scope.customer.zip = $scope.editableZip;
@@ -57,6 +61,15 @@
     $scope.disableCustomerInfoEditor();
   };
 
+//  var promise = LoginService.getAccountDetails();
+//	
+//	promise.then(
+//			function(response) {
+//				if(response.data !== null) {
+//					$scope.productList = response.data;			
+//				}
+//			});
+	
   $scope.getDataFromServer = function() {
       $http({
               method : 'GET',
@@ -72,11 +85,23 @@
 };
 
 /* Name on Card */
- 
- $scope.paymentMethods = [{id: 0, cardName: "sdfsff", cardNumber: 234234, cardMM: 11, cardYYYY: 2019}];
+
+
+//if($cookieStore.get("paymentMethods") !== undefined) {
+//	console.log($cookieStore.get("paymentMethods"));
+//	 $scope.paymentMethods = $cookieStore.get("paymentMethods");
+//} else {
+//	$scope.paymentMethods = [];
+//}
+
+$scope.paymentMethods = [];
+
+//$scope.paymentMethods = [];
 
  $scope.paymentMethodsCopy = [];
 
+ LoginService.saveCardInfoToDisplay($scope.paymentMethods);
+ 
   angular.forEach($scope.paymentMethods, function(value, key) {
     $scope.paymentMethodsCopy.push({
       id: value.id,
@@ -94,18 +119,20 @@
   
   $scope.saveCardInfo = function($index) {
     // angular.copy($scope.editedCard, $scope.paymentMethods[$scope.id]);
-
+	 $cookieStore.put("paymentMethods", $scope.paymentMethods[$index]);
+	 console.log($scope.paymentMethods[$index]);
+	 
     $scope.disableCardEditor($index);
   };
 
   $scope.addPaymentMethod = function() {
 
-    $scope.len = $scope.paymentMethods.length;
+//    $scope.len = $scope.paymentMethods.length;
 
     $scope.paymentMethods.push(
       { 
-        id: $scope.len+1,
-        cardName: "sdfsff",
+//        id: $scope.len+1,
+        cardName: '',
         cardNumber: null,
         cardMM: null,
         cardYYYY: null
@@ -115,13 +142,13 @@
       id: $scope.len+1,
       isCardEditable: false
     });
-  }
+  };
 
   $scope.deleteCard = function($index) {
     $scope.paymentMethods.splice($index, 1);
     $scope.paymentMethodsCopy.splice($index, 1);
 
-  }
+  };
 
 // /* Card Number */
  
@@ -183,4 +210,4 @@
 //     $scope.disableCardYYYYEditor();
 //   };
 
-  });
+  }]);

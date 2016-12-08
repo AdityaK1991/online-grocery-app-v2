@@ -4,7 +4,7 @@
     <input type="text" ng-model="searchProductCategoryList" class="form-control" placeholder="Search Products">
 </div>
 
-<div class="jumbotron">  
+<div class="jumbotron" ng-controller="NavSideMenuCtrl">  
   <div class="col-md-4 top-buffer" ng-repeat="product in productList | filter:searchProductCategoryList">      
     <a ng-href="#/products/1">
     <div class="card">
@@ -17,4 +17,5 @@
       </div>
     </div>
     </a>
+  </div>
   </div>

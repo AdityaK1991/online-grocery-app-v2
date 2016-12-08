@@ -18,6 +18,9 @@ angular.module('onlineGroceryStoreApp')
 
     $scope.products.disableCartButton = false;
     
+    $scope.fname = $cookieStore.get('fname');
+    $scope.lname = $cookieStore.get('lname');
+    
 	var promise = ProductService.getAllProducts();
 	
 	promise.then(
@@ -26,6 +29,8 @@ angular.module('onlineGroceryStoreApp')
 			
 			if(response.data !== null) {
 				$scope.products = response.data;
+				console.log("Main :" + $scope.products);
+
 				angular.forEach($scope.products in function(value, key) {
 //					console.log(key.prodName + ":" + value.prodName);
 					$scope.products.push({

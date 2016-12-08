@@ -25,7 +25,11 @@ angular.module('onlineGroceryStoreApp')
     $scope.status;
     
     $scope.submitCustomerInfo = function() {
-    	$scope.register.type = 'customer';
+    	if(!$scope.register.jobTitle) {
+        	$scope.register.type = 'customer';	
+    	} else {
+    		$scope.register.type = 'admin';	
+    	}
 
     	console.log($scope.register);
     	
@@ -34,7 +38,11 @@ angular.module('onlineGroceryStoreApp')
     	promise.then(
 			function(response) {
 		    	console.log(response.status);
-	    		$location.path('#/products');
+		    	if(!$scope.register.jobTitle) {
+		    		$location.path('#/products');
+		    	} else {
+		    		$location.path('#/admin/products');
+		    	}
 
 		    	if(response.status === 200) {
     	    	} else {

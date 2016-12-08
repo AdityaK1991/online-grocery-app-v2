@@ -1,3 +1,4 @@
+<div class="center"><img src="https://groceryshopindia8.files.wordpress.com/2015/05/grocery-shop.png"/></div>
 <div class="center card card-outline-blue whiteColor"><strong><h3>Popular Products</h3></strong></div>
 <ng-include src="'views/carousel.html'"></ng-include>
 <!-- <div ng-model="searchProduct" ng-include="'views/searchBarProducts.html'"></div> -->
@@ -13,7 +14,7 @@
   <div class="col-md-4 top-buffer" ng-repeat="product in products | filter:searchProduct">      
     <a ng-href="#/products/1" ng-click="displayProductInfo(product)">
     <div class="card">
-      <img class="card-image" src="images/yeoman.png" alt="Product">
+      <img class="card-image" height="150" width="250" src="http://images.skymetweather.com/content/wp-content/uploads/2015/05/Fruits-1.jpg" alt="Product">
       <div class="card-block">
         <span class="card-title"><h3>{{product.prodName}}</h3></span>
         <span class="card-text"><h4>${{product.ProdPrice}}</h4></span>

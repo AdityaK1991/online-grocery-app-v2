@@ -1,9 +1,14 @@
 angular.module('onlineGroceryStoreApp')
-	.factory('LoginService', ['$http', function($http){
+	.factory('LoginService', ['$http', '$cookieStore',
+	                          function($http, $cookieStore){
 		
 		var promise;
 		
 		var factory = {};
+		
+		var customer = {};
+		
+		var cards = {};
 		
 //		$http.defaults.headers.post = "application/json";
 		
@@ -43,6 +48,28 @@ angular.module('onlineGroceryStoreApp')
 			
 	    };
 		
+	    factory.saveCustomerInfoToDisplay = function(customerInfo) {
+	    	customer = customerInfo;
+	    };
+	    
+	    factory.getCustomerInfoToDisplay = function() {
+	    	return customer;
+	    };
+	    
+	    factory.saveCardInfoToDisplay = function(cardInfo) {
+	    	cards = cardInfo;
+	    };
+	    
+	    factory.getCardInfoToDisplay = function() {
+	    	return cards;
+	    };
+	    
+	    factory.getAccountDetails = function() {
+			console.log("Account details");
+			
+			return $http.post('LoginServlet/getUserDetails', JSON.stringify({'cId' : $cookieStore.get('userId')}));
+			
+	    };
 	    
 	    return factory;
 }]);	

@@ -1,5 +1,6 @@
 angular.module('onlineGroceryStoreApp')
-	.factory('ProductService', ['$http', function($http){
+	.factory('ProductService', ['$http', '$cookieStore', 
+	                            function($http, $cookieStore){
 				
 		var factory = {};
 		
@@ -27,6 +28,8 @@ angular.module('onlineGroceryStoreApp')
 		
 		factory.addProductToCart = function(product) {
 			cartItems.push(product);
+			
+			$cookieStore.put("cartItems", cartItems);
 		};
 		
 		factory.getCartItems = function(product) {
