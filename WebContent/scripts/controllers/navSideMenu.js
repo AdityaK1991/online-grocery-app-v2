@@ -6,7 +6,7 @@ angular.module('onlineGroceryStoreApp')
 
 //    $scope.items = $rootScope.cartItems;
 
-     $scope.productList = [{prodName: 'carrot', ProdPrice: 2},
+     var vegetable = [{prodName: 'carrot', ProdPrice: 2},
                        {prodName: 'Bell Peppers', ProdPrice: 25},
                        {prodName: 'brinjal', ProdPrice: 15},
                        {prodName: 'cauliflower', ProdPrice: 15},
@@ -18,13 +18,15 @@ angular.module('onlineGroceryStoreApp')
      var fruits = [{prodName: 'apple', ProdPrice: 2},
                    {prodName: 'Pomogranate', ProdPrice: 25}];
      
-     $scope.productList = [];
+    $scope.productList = [];
     $scope.cartCount = 0;
 
     $scope.showByCategory = function(category) {
     	console.log(category);
 		$location.path('products/product-category' + '/' + category);
     	
+		$scope.type = category;
+		console.log("type" + $scope.type);
 //    	var promise = ProductListByCategoryService.getAllProductsByCategory(category);
 //    	
 //    	if(category === 'vegetable') {
