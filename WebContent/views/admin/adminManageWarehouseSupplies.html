@@ -40,7 +40,7 @@
         {{ product.price }}
       </td>
       <!-- <td>
-        Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
+        Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['Supplier-1', 'Supplier-2', 'Supplier-3']"></select>
         <div ng-show="buyFromSupplier">
           Count: {{productCount=10}} 
           <button class="btn btn-primary" ng-disabled="productCount === 0" ng-click="addProductToCart()">Add to Cart</button>
@@ -66,18 +66,18 @@
     <div class="row card marginLR5">
     <div class="col-md-6">
           <td>
-            <p><strong><h4>Total Product count:</h4></strong></p>
             <p><strong><h4>Total warehouse capcity occupied by all products:</h4></strong></p>
-            <p><strong><h4>Warehouse Total Capacity:</h4></strong></p>
+            <p><strong><h4>Warehouse Current Capacity:</h4></strong></p>           
+            <p><strong><h4>Warehouse Actual Capacity:</h4></strong></p>
           </td>
 
       </div>
 
       <div class="col-md-3">
           <td>
-            <p><strong><h4>1400</h4></strong></p>
-            <p><strong><h4>1000 cubic feet</h4></strong></p>
-            <p><strong><h4>2,500 cubic feet</h4></strong></p>
+            <p><strong><h4>{{warehouseProductsTotalSize}}</h4></strong></p>
+            <p><strong><h4>{{warehouseCurrentCapacity}}</h4></strong></p>
+            <p><strong><h4>{{warehouseCapacity}}</h4></strong></p>
           </td>
 
       </div>
@@ -100,7 +100,7 @@
     <th class="col-xs-1">Select Supplier</th>
     <th class="col-xs-1">Select Quantity</th>
     <th class="col-xs-1">Price</th>
-    <!-- <th class="col-xs-2">Delete</th> -->
+    <th class="col-xs-2">Remove</th>
 
     <tr ng-repeat="cartProduct in cartProducts">
       <td>
@@ -108,31 +108,23 @@
       </td>
 
       <td>
-        <select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
+        <select ng-init="buyFromSupplier='Supplier-1'" ng-model="buyFromSupplier" ng-options="y for (x, y) in ['Supplier-1', 'Supplier-2', 'Supplier-3']"></select>
       </td>
 
       <td>
-        <select ng-init="qty=1" ng-model="qty" ng-options="y for (x, y) in ['1', '2', '3', '4', '5', '6']"></select>
+        <select ng-init="qty='1'" ng-model="qty" ng-options="y for (x, y) in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"></select>
       </td>
-
+      
       <td ng-show="buyFromSupplier">
-        {{ qty * 25}}
+        {{ qty * 45	}}
       </td>
 
-      <!-- <td>
-        {{ product.supplier }}
-      </td> -->
-
-      <!-- <td>
-        Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
-        <div ng-show="buyFromSupplier">
-          Count: {{productCount=10}} 
-          <button class="btn btn-primary" ng-disabled="productCount === 0" ng-click="addProductToCart()">Add to Cart</button>
-        </div> -->
-
-      <!-- </td> -->
+	  <td>
+          <a class="glyphicon glyphicon-trash redColor" ng-click="removeProductFromCart($index)"/>
+      </td> 
     
     </tr>
+    
 
      </tbody>
     </table>
@@ -141,4 +133,4 @@
 
 
 
-    <a class="btn btn-primary pull-right" ng-href="#/order-payment">Checkout</a>
+    <a class="btn btn-primary pull-right" ng-click="checkSupplierQty()">Place Order</a>

@@ -17,6 +17,8 @@ angular.module('onlineGroceryStoreApp')
     			   console.log("Response: " + customerInfo);
     			   $cookieStore.put("user_id", customerInfo.CustId);
 				   $cookieStore.put("state", customerInfo.State);
+				   $cookieStore.put("balance", 500);
+
     				   
     				   console.log("sdfsdfsdfsfsdf: " + $cookieStore.get("user_id") + " : " + $cookieStore.get("state"));
     			   

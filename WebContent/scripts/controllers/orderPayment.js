@@ -1,6 +1,6 @@
 angular.module('onlineGroceryStoreApp')
-  .controller('OrderPaymentCtrl', ['LoginService', '$rootScope', '$scope', '$cookieStore',
-                                   function (LoginService, $rootScope, $scope, $cookieStore) {
+  .controller('OrderPaymentCtrl', ['LoginService', '$rootScope', '$scope', '$cookieStore', '$location',
+                                   function (LoginService, $rootScope, $scope, $cookieStore, $location) {
 
     $rootScope.isMenuVisible = true;
     
@@ -38,9 +38,18 @@ angular.module('onlineGroceryStoreApp')
     
 //	$scope.cards.push(cardInfo);
     
+    var balance = $cookieStore.get('balance');
+    	console.log("order balance: " + balance);
+    	
     $scope.placeOrder = function() {
+    	
+    	if(balance < 0) {
+    		alert('You do not have enough credit!')
+    	} else {
+        	alert('Order placed Successfully!');
+    		$location.path('#/main');
+    	}
 //		$cookieStore.remove('cartItems');
-    	alert('Order placed Successfully!');
     };
 	
     	

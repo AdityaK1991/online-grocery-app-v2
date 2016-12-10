@@ -25,7 +25,9 @@ angular.module('onlineGroceryStoreApp')
     
     
 	var promiseCartItems = CartService.getCartItems();
-		
+	
+	var balance = $cookieStore.get("balance");
+	
 	promiseCartItems.then(
 			function(response) {
 				console.log("All Products in Cart:" + response.data);
@@ -34,6 +36,7 @@ angular.module('onlineGroceryStoreApp')
 					$scope.products = response.data;
 					angular.forEach($scope.products in function(value, key) {
 	//					console.log(key.prodName + ":" + value.prodName);
+						balance = balance - value.ProdPrice;
 						$scope.products.push({
 		   					 prodName  : value.prodName,
 		   					 ProdPrice : value.ProdPrice,
@@ -43,6 +46,12 @@ angular.module('onlineGroceryStoreApp')
 				}
 			}
 		);  
+	
+	balance = balance - $scope.cartItems.length * 60;
+	
+	console.log("Customer balance: " + balance);
+	$cookieStore.put("balance", balance);
+	
 	
 //	angular.forEach($scope.products in function(value, key) {
 //		ProductService.getAllProductsInCart(
