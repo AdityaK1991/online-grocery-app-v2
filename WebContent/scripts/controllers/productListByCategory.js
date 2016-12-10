@@ -4,11 +4,13 @@ angular.module('onlineGroceryStoreApp')
 
 	  $rootScope.isMenuVisible = true;
 
-	  $scope.productList = {};
+	  	$scope.productList = {};
 	    $scope.cartCount = 0;
 	    var category = $routeParams.category;
 	    console.log("Category:" + category)
 	   
+	    $scope.type = category;
+	    
 	    	var promise = ProductListByCategoryService.getAllProductsByCategory(category);
 	    	
 	    	promise.then(

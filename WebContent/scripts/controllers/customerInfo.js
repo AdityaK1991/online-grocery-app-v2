@@ -31,15 +31,15 @@
   
   $scope.enableCustomerInfoEditor = function() {
     $scope.editorCustomerInfoEnabled = true;
-    $scope.editableFName = $scope.customer.fname;
-    $scope.editableMName = $scope.customer.mname;
-    $scope.editableLName = $scope.customer.lname;
-    $scope.editableAddressL1 = $scope.customer.streetAddress;
-    $scope.editableCity = $scope.customer.city;
-    $scope.editableState = $scope.customer.state;
-    $scope.editableZip = $scope.customer.zip;
+    $scope.editableFName = $scope.customer.Fname;
+    $scope.editableMName = $scope.customer.Mname;
+    $scope.editableLName = $scope.customer.Lname;
+    $scope.editableAddressL1 = $scope.customer.StreetAddress;
+    $scope.editableCity = $scope.customer.City;
+    $scope.editableState = $scope.customer.State;
+    $scope.editableZip = $scope.customer.Zipcode;
 //    $scope.editableCountry = $scope.country;
-    $scope.editablePhone = $scope.customer.phone;
+    $scope.editablePhone = $scope.customer.Phone;
   };
   
   $scope.disableCustomerInfoEditor = function() {
@@ -47,15 +47,15 @@
   };
   
   $scope.saveCustomerInfo = function() {
-    $scope.customer.fname = $scope.editableFName;
-    $scope.customer.mname = $scope.editableMName;
-    $scope.customer.lname = $scope.editableLName;
-    $scope.customer.streetAddress = $scope.editableAddressL1;
-    $scope.customer.city = $scope.editableCity;
-    $scope.customer.state = $scope.editableState;
-    $scope.customer.zip = $scope.editableZip;
+    $scope.customer.Fname = $scope.editableFName;
+    $scope.customer.Mname = $scope.editableMName;
+    $scope.customer.Lname = $scope.editableLName;
+    $scope.customer.StreetAddress = $scope.editableAddressL1;
+    $scope.customer.City = $scope.editableCity;
+    $scope.customer.State = $scope.editableState;
+    $scope.customer.Zipcode = $scope.editableZip;
 //    $scope.country = $scope.editableCountry;
-    $scope.customer.phone = $scope.editablePhone;
+    $scope.customer.Phone = $scope.editablePhone;
 
     $scope.disableCustomerInfoEditor();
   };
