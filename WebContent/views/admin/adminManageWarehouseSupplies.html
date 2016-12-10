@@ -1,4 +1,4 @@
-<div ng-controller="CartItemsCtrl">
+<div>
 
   <table class="table table-hover">
 
@@ -14,6 +14,7 @@
     <th class="col-xs-1">Quantity</th>
     <th class="col-xs-1">Supplier</th>
     <!-- <th class="col-xs-1">Buy Stock from Supplier</th> -->
+    <th class="col-xs-1">Price</th>
     <th class="col-xs-1">Total Price</th>
     <th class="col-xs-1">Add to cart</th>
     <!-- <th class="col-xs-2">Delete</th> -->
@@ -35,6 +36,9 @@
         {{ product.supplier }}
       </td>
 
+	  <td>
+        {{ product.price }}
+      </td>
       <!-- <td>
         Select Supplier<select ng-model="buyFromSupplier" ng-options="y for (x, y) in ['S1', 'S2', 'S3']"></select>
         <div ng-show="buyFromSupplier">
@@ -112,7 +116,7 @@
       </td>
 
       <td ng-show="buyFromSupplier">
-        {{ qty * 20}}
+        {{ qty * 25}}
       </td>
 
       <!-- <td>
