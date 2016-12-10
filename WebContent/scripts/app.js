@@ -26,8 +26,8 @@ angular
       })
       .when('/products/product-category/:category', {
         templateUrl: 'views/productListByCategory.html',
-        controller: 'NavSideMenuCtrl',
-        controllerAs: 'navSideMenu'
+        controller: 'ProductListByCategoryCtrl',
+        controllerAs: 'productListByCategory'
       })
       .when('/products/:productId', {
         templateUrl: 'views/productDetail.html',

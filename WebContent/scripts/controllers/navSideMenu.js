@@ -20,12 +20,8 @@ angular.module('onlineGroceryStoreApp')
      
     $scope.productList = {};
     $scope.cartCount = 0;
-    
-    $scope.type = null;
     $scope.showByCategory = function(category) {
     	console.log(category);
-		$location.path('/products/product-category' + '/' + category);
-    	
 		$scope.type = category;
 		console.log("type: " + $scope.type);
     	var promise = ProductListByCategoryService.getAllProductsByCategory(category);
@@ -33,7 +29,6 @@ angular.module('onlineGroceryStoreApp')
     	promise.then(
     			function(response) {
     				if(response.data !== null) {
-    					
     					angular.forEach($scope.productList in function(value, key) {	
     						console.log(value.prodName);
 							$scope.productList.push({
