@@ -109,7 +109,7 @@ public class CartServlet extends HttpServlet {
         
         System.out.println("Cart Cust Obj:" + jsonObj);
 
-		int custId = cartObj.get("custId").getAsInt();
+		int custId = cartObj.get("cId").getAsInt();
 		
 		CartDao cdao = new CartDao();
 		
@@ -135,7 +135,7 @@ public class CartServlet extends HttpServlet {
         
         System.out.println("Cust Obj:" + jsonObj);
 
-		int custId = cartObj.get("custId").getAsInt();
+		int custId = cartObj.get("cId").getAsInt();
 		
 
 //		request.setAttribute("custId", custId);

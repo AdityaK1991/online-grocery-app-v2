@@ -7,7 +7,7 @@ angular.module('onlineGroceryStoreApp')
 		factory.addProductToCart = function(product) {
 			
 			var cartProduct = {
-					"custId" : $cookieStore.get("userId"), 
+					"cId" : $cookieStore.get("user_id"), 
 					"prodId" : product.prodId,
 					"cartQuantity" : 1
 					};
@@ -20,17 +20,17 @@ angular.module('onlineGroceryStoreApp')
 		
 		
 		factory.getCartItems = function() {
-			return $http.post('CartServlet', {'custId' : $cookieStore.get("userId")});
+			return $http.post('CartServlet', {'cId' : $cookieStore.get("user_id")});
 		};
 		
 		factory.getCartCount = function() {
-			return $http.post('CartServlet/cartCount', {'custId' : $cookieStore.get("userId")});
+			return $http.post('CartServlet/cartCount', {'cId' : $cookieStore.get("user_id")});
 		};
 	    
 		
 		factory.updateCartItemQuantity = function(product) {
 			return $http.post('CartServlet/updateCartProductQuantity', 
-					{'custId' : $cookieStore.get("userId"), 
+					{'cId' : $cookieStore.get("user_id"), 
 					 'prodId' : product.prodId,
 					 'cartQuantity' : product.cartQuantity});
 		};

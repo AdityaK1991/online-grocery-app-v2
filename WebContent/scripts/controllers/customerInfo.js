@@ -9,22 +9,21 @@
  /* First Name */
     $scope.customer = {};
     
-  $scope.customer.fname = "John";
-  $scope.customer.lname = "Smith";
-  $scope.customer.streetAddress = "2901 S King Drive";
-  $scope.customer.city = "Chicago";
-  $scope.customer.state = "IL";
-  $scope.customer.zip = 60616;
-  $scope.customer.country = "United States";
-  $scope.customer.phone = 9876543210;
-
-  $cookieStore.put('fname', $scope.customer.fname);
-  $cookieStore.put('lname', $scope.customer.lname);
-  $cookieStore.put('address', $scope.customer.streetAddress);
-  $cookieStore.put('city', $scope.customer.city);
-  $cookieStore.put('state', $scope.customer.state);
-  $cookieStore.put('zip', $scope.customer.zip);
-  $cookieStore.put('phone', $scope.customer.phone);
+//  $scope.customer.fname = "John";
+//  $scope.customer.lname = "Smith";
+//  $scope.customer.streetAddress = "2901 S King Drive";
+//  $scope.customer.city = "Chicago";
+//  $scope.customer.state = "IL";
+//  $scope.customer.zip = 60616;
+//  $scope.customer.country = "United States";
+//  $scope.customer.phone = 9876543210;
+//
+//  $cookieStore.put('fname', $scope.customer.fname);
+//  $cookieStore.put('lname', $scope.customer.lname);
+//  $cookieStore.put('address', $scope.customer.streetAddress);
+//  $cookieStore.put('city', $scope.customer.city);
+//  $cookieStore.put('zip', $scope.customer.zip);
+//  $cookieStore.put('phone', $scope.customer.phone);
   
   LoginService.saveCustomerInfoToDisplay($scope.customer);
   
@@ -61,28 +60,30 @@
     $scope.disableCustomerInfoEditor();
   };
 
-//  var promise = LoginService.getAccountDetails();
-//	
-//	promise.then(
-//			function(response) {
-//				if(response.data !== null) {
-//					$scope.productList = response.data;			
-//				}
-//			});
+  var promise = LoginService.getAccountDetails();
 	
-  $scope.getDataFromServer = function() {
-      $http({
-              method : 'GET',
-              //url : 'ConnectToDatabase'
-              url : 'DataSource'
-      }).success(function(data, status, headers, config) {
-              $scope.product = data;
-      }).error(function(data, status, headers, config) {
-              // called asynchronously if an error occurs
-              // or server returns response with an error status.
-      });
+	promise.then(
+			function(response) {
+				if(response.data !== null) {
+					$scope.customer = response.data;
+					
+					console.log(response.data);
+				}
+			});
+	
+//  $scope.getDataFromServer = function() {
+//      $http({
+//              method : 'GET',
+//              //url : 'ConnectToDatabase'
+//              url : 'DataSource'
+//      }).success(function(data, status, headers, config) {
+//              $scope.product = data;
+//      }).error(function(data, status, headers, config) {
+//              // called asynchronously if an error occurs
+//              // or server returns response with an error status.
+//      });
 
-};
+//};
 
 /* Name on Card */
 

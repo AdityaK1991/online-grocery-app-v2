@@ -124,8 +124,18 @@ public class ProductServlet extends HttpServlet{
 
 	private void handleGetAllProducts(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
+		JsonParser parser = new JsonParser();
+		
+        JsonObject stateObj = (JsonObject) parser
+                .parse(request.getReader());
+                       
+		String prodState = stateObj.get("state").getAsString();
+		
+		System.out.println("Customer-Product State: " + prodState);
+		
 		ProductDao pdao = new ProductDao();
-		List<Product> prodList = pdao.getAllProducts();
+		List<Product> prodList = pdao.getAllProducts(prodState);
 		String json = new Gson().toJson(prodList);
 		response.setContentType("application/json");
 		response.getWriter().write(json);

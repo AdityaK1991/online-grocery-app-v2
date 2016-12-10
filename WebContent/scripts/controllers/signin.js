@@ -11,13 +11,19 @@ angular.module('onlineGroceryStoreApp')
        
        promise.then(
     		   function(response) {
-    			   console.log(response.status);
+    			   console.log(response.data);
     			   
-    			   $cookieStore.put("userId", response.data);
+    			   var customerInfo = JSON.parse(response.data);
+    			   console.log("Response: " + customerInfo);
+    			   $cookieStore.put("user_id", customerInfo.CustId);
+				   $cookieStore.put("state", customerInfo.State);
+    				   
+    				   console.log("sdfsdfsdfsfsdf: " + $cookieStore.get("user_id") + " : " + $cookieStore.get("state"));
+    			   
     			   
     			   if(response.status === 200) {
     				   $location.path('#/main');
-    				   console.log($cookieStore.get("userId"));
+    				   console.log($cookieStore.get("user_id"));
     			   } else {
     				   alert('Please check your credentials and try again!');
     			   }

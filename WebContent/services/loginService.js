@@ -47,6 +47,11 @@ angular.module('onlineGroceryStoreApp')
 			return $http.post('LoginServlet', JSON.stringify($loginCredentials));
 			
 	    };
+//	    var user_id = $cookieStore.get("user_id");
+	    
+//	    factory.getCustomerState = function() {
+//			return $http.post('LoginServlet/getUserState', JSON.stringify({'cid' : user_id}));
+//	    };
 		
 	    factory.saveCustomerInfoToDisplay = function(customerInfo) {
 	    	customer = customerInfo;
@@ -67,7 +72,7 @@ angular.module('onlineGroceryStoreApp')
 	    factory.getAccountDetails = function() {
 			console.log("Account details");
 			
-			return $http.post('LoginServlet/getUserDetails', JSON.stringify({'cId' : $cookieStore.get('userId')}));
+			return $http.post('LoginServlet/getUserDetails', JSON.stringify({cId : $cookieStore.get("user_id")}));
 			
 	    };
 	    

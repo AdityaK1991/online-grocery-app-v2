@@ -95,15 +95,14 @@ public class RegisterDao {
 	}
 
 	public String authenticateUSer(UserAuth user) {
-		
-		String customerId = null;
+		Customer customer = null;
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		ResultSet rs = null;
 		
 		boolean status = false;
 		
-		final String select_Query ="SELECT CID, UNAME FROM USERS, CUSTOMER WHERE USERS.UNAME=? AND USERS.PASSWORD=?";
+		final String select_Query ="SELECT CID, STATE, UNAME FROM USERS, CUSTOMER WHERE USERS.UNAME=? AND USERS.PASSWORD=?";
 		
 		try {
 			ps = con.prepareStatement(select_Query);
@@ -111,7 +110,9 @@ public class RegisterDao {
 			ps.setString(2, user.getPassword());
 			rs = ps.executeQuery();
 			while(rs.next()){
-				customerId = rs.getString(1);
+				customer = new Customer();
+				customer.setCustId(rs.getInt("CID"));
+				customer.setState(rs.getString("STATE"));
 			}
 			
 			status = rs.next();
@@ -130,20 +131,25 @@ public class RegisterDao {
 			}
 			
 		}
-		System.out.println("Customer ID : " + customerId);
-		return customerId;
+		String jsonCustomer = new Gson().toJson(customer);
+		
+		System.out.println("Customer auth: " + jsonCustomer);
+		
+		return jsonCustomer;
 	}
 	
 	public String getCustomerByCustId(int custId){
 		Customer customer = null;
 		ResultSet rs = null;
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
 		final String select_Query ="SELECT * FROM CUSTOMER WHERE CID=?";
 		try {
-			ps=con.prepareStatement(select_Query);
+			ps = con.prepareStatement(select_Query);
 			ps.setInt(1, custId);
 			rs = ps.executeQuery();
 			
-			while(rs.next()){
+			while(rs != null && rs.next()){
 				customer = new Customer();
 				customer.setFname(rs.getString("FNAME"));
 				customer.setLname(rs.getString("LNAME"));
@@ -154,7 +160,7 @@ public class RegisterDao {
 				customer.setZipcode(rs.getString("ZIP"));
 				customer.setEmail(rs.getString("EMAIL"));
 				customer.setOutbalance(rs.getInt("OBALANCE"));
-			}
+							}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,4 +182,42 @@ public class RegisterDao {
 		
 		return jsonCustomer;
 	}
+	
+	
+	public String getCustomerStateById(int custId){
+		String customerState = null;
+		ResultSet rs = null;
+		DataSource ds = new DataSource();
+		con = ds.getNewConnection();
+		final String select_Query ="SELECT STATE FROM CUSTOMER WHERE CID=?";
+		try {
+			ps = con.prepareStatement(select_Query);
+			ps.setInt(1, custId);
+			rs = ps.executeQuery();
+			
+			while(rs != null && rs.next()){
+				customerState = rs.getString("STATE");
+							}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		System.out.println("Customer state: " + customerState);
+		
+		return customerState;
+	}
+	
+	
 }

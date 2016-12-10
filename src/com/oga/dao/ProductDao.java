@@ -84,16 +84,17 @@ public class ProductDao {
 		return ack;
 	}
 	
-	public List<Product> getAllProducts() throws Exception{
+	public List<Product> getAllProducts(String state) throws Exception{
 		DataSource ds = new DataSource();
 		con = ds.getNewConnection();
 		List<Product> productList = new ArrayList<Product>();
 		ResultSet rs = null;
 		
-		final String select_Query ="SELECT * FROM PRODUCT";
+		final String select_Query ="SELECT * FROM PRODUCT WHERE ProdState = ?";
 		
 		try {
 			ps=con.prepareStatement(select_Query);
+			ps.setString(1, state);
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
@@ -112,6 +113,8 @@ public class ProductDao {
 		Gson gson = new Gson();
 		
 		String json = gson.toJson(productList);
+		
+		System.out.println("Product list by state:" + json);	
 		
 		return productList;
 	}

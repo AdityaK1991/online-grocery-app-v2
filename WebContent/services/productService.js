@@ -9,10 +9,10 @@ angular.module('onlineGroceryStoreApp')
 		
 		var productItem = {};
 		
-		factory.getAllProducts = function() {
-			console.log("Product service triggered");
+		factory.getAllProducts = function(customerState) {
+			console.log("Product service triggered: " + $cookieStore.get('state'));
 
-			return $http.post('ProductServlet/getAllProducts');
+			return $http.post('ProductServlet/getAllProducts', JSON.stringify({state : $cookieStore.get('state')}));
 
 		};
 		
